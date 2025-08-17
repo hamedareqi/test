@@ -1,0 +1,2858 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الصيادين - ارتقِ بمستواك إلى القمة!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1a202c; 
+            color: #e2e8f0; 
+            overflow-x: hidden; 
+        }
+        .hero-bg {
+            background: linear-gradient(to right, #2d3748 0%, #1a202c 100%); 
+        }
+        .btn-primary {
+            background-color: #6a11cb; 
+            color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #5a0eb0;
+            transform: translateY(-2px);
+        }
+        .btn-primary:disabled {
+            background-color: #4a5568;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background-color: #4a5568; 
+            color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #2d3748;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background-color: #dc2626; /* Red */
+            color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+        }
+        .card {
+            background-color: #2d3748; 
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(106, 17, 203, 0.3); 
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border: 1px solid #4a5568; 
+            border-radius: 8px;
+            padding: 10px 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #6a11cb; 
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.25);
+        }
+
+        .status-window {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #6a11cb; 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.7); 
+            padding: 2.5rem;
+        }
+
+        .progress-bar-container {
+            background-color: #4a5568;
+            border-radius: 9999px; 
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(to right, #6a11cb, #2575fc); 
+            height: 100%;
+            border-radius: 9999px;
+            width: 0%; 
+            animation: fillProgress 1.5s ease-out forwards;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: var(--progress-width); } 
+        }
+
+        .skill-icon {
+            color: #6a11cb; 
+        }
+
+        .dungeon-card { 
+            background-color: #1f2937; 
+            border: 2px solid #6a11cb;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .dungeon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+        .timed-dungeon-card { 
+            background: linear-gradient(145deg, #3e1f75, #2c1250);
+            border: 2px solid #8b5cf6;
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+        }
+        .timed-dungeon-card .dungeon-timer, .modal-content .dungeon-timer {
+            background-color: rgba(0,0,0,0.4);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #f59e0b; 
+            font-weight: bold;
+        }
+
+
+        .daily-quest-card {
+            background-color: #4a0e8d; 
+            border: 2px solid #a78bfa; 
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); 
+            animation: pulse 2s infinite alternate;
+            cursor: pointer;
+            min-height: 220px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes pulse {
+            from { box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); }
+            to { box-shadow: 0 0 30px rgba(167, 139, 250, 0.8); }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border: 2px solid #6a11cb;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 25px rgba(106, 17, 203, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            position: relative; 
+            text-align: right;
+            max-height: 90vh; 
+            overflow-y: auto; 
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-content h3 {
+            color: #6a11cb;
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .modal-content p {
+            font-size: 1.125rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px; 
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            color: #ff0000;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #6a11cb;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .health-stamina-bar-container {
+            background-color: #4a5568;
+            border-radius: 9999px;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid #6a11cb;
+        }
+        .health-bar {
+            background-color: #ef4444; 
+        }
+        .stamina-bar {
+            background-color: #3b82f6; 
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease-out;
+        }
+
+        .status-ailment-badge {
+            background-color: #dc2626; 
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .status-ailment-badge:hover {
+            background-color: #b91c1c;
+        }
+
+        .rarity-common { color: #cbd5e0; } 
+        .rarity-rare { color: #3b82f6; }    
+        .rarity-epic { color: #a78bfa; }    
+        .rarity-legendary { color: #f59e0b; } 
+
+        .job-change-btn {
+            background-color: #8b5cf6; 
+            color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .job-change-btn:hover {
+            background-color: #7c3aed;
+        }
+
+        .quest-log-item {
+            background-color: #1f2937;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            margin-bottom: 10px;
+        }
+        .quest-log-item.completed {
+            opacity: 0.7;
+            border-color: #059669; 
+        }
+        .quest-log-item.failed {
+            opacity: 0.7;
+            border-color: #ef4444; 
+        }
+        .dungeon-task-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #374151; 
+        }
+        .dungeon-task-item:last-child {
+            border-bottom: none;
+        }
+        .dungeon-task-item input[type="checkbox"] {
+            margin-left: 10px; 
+            width: 18px;
+            height: 18px;
+            accent-color: #6a11cb; 
+        }
+        .dungeon-task-item label {
+            flex-grow: 1;
+            color: #cbd5e0; 
+        }
+        .dungeon-task-item.completed label {
+            text-decoration: line-through;
+            color: #6b7280; 
+        }
+        .currency-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #f59e0b; 
+            margin-top: 5px;
+        }
+        .community-card {
+            background-color: #1f2937;
+            border: 1px solid #4a5568;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .community-card h4 {
+            color: #a78bfa; 
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+    </style>
+</head>
+<body class="text-right">
+
+    <nav class="bg-gray-900 shadow-lg p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center flex-wrap">
+            <a href="#" class="text-3xl font-extrabold text-purple-500 rounded-md p-2 hover:bg-gray-800 transition-colors">
+                أكاديمية الصيادين
+            </a>
+            <div class="block lg:hidden">
+                <button id="menu-button" class="text-gray-300 focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="nav-links" class="w-full lg:flex lg:items-center lg:w-auto hidden lg:block mt-4 lg:mt-0">
+                <ul class="lg:flex items-center justify-between text-lg text-gray-300 pt-4 lg:pt-0">
+                    <li><a href="#dashboard" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">لوحة الحالة</a></li>
+                    <li><a href="#skills" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">القدرات</a></li>
+                    <li><a href="#daily-quest" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">المهمة اليومية</a></li>
+                    <li><a href="#dungeons" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">الزنزانات</a></li>
+                    <li><a href="#inventory" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">المخزون</a></li>
+                    <li><a href="#titles" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">الألقاب</a></li>
+                    <li><a href="#companions" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">الرفقاء</a></li>
+                    <li><a href="#exchange" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">المتجر</a></li>
+                    <li><a href="#community" class="block lg:inline-block py-2 px-4 hover:text-purple-400 rounded-md transition-colors">المجتمع</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="dashboard" class="hero-bg text-white py-20 md:py-32 text-center">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="status-window mx-auto">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-8 text-purple-400">
+                    <i class="fas fa-user-circle ml-3"></i> لوحة حالة الصياد
+                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الاسم:</span> <span id="hunter-name">صياد الظلال</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">المستوى:</span> <span id="hunter-level">1</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الرتبة:</span> <span id="hunter-rank">مُبتدئ</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">المهنة:</span> <span id="hunter-job">لا يوجد</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الحالة السلبية:</span> <span id="status-ailments-display" class="inline-block">لا يوجد</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-yellow-400">الجوهر:</span> <span id="aether-shards-display">0</span> ج</p>
+
+                    </div>
+                    <div>
+                        <p class="text-xl mb-2"><span class="font-bold text-red-400">الصحة:</span> <span id="current-health">100</span> / <span id="max-health">100</span></p>
+                        <div class="health-stamina-bar-container"><div id="health-bar-fill" class="bar-fill health-bar" style="width:100%;"></div></div>
+                        <p class="text-xl mb-2"><span class="font-bold text-blue-400">الطاقة:</span> <span id="current-stamina">100</span> / <span id="max-stamina">100</span></p>
+                        <div class="health-stamina-bar-container"><div id="stamina-bar-fill" class="bar-fill stamina-bar" style="width:100%;"></div></div>
+                        <p class="text-xl mb-4 mt-4"><span class="font-bold text-purple-300">نقاط القدرة المتاحة:</span> <span id="available-points">0</span></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">المعدات:</span> <span id="equipment-display">لا يوجد</span></p>
+                        <button onclick="window.showEquipmentModal()" class="btn-secondary px-4 py-2 text-sm rounded-md"><i class="fas fa-hammer ml-2"></i> إدارة المعدات</button>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">القوة:</span> <span id="stat-strength">10</span> <button class="btn-secondary px-2 py-1 text-sm rounded-md mr-2" onclick="window.allocateStat('strength')">+</button></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الرشاقة:</span> <span id="stat-agility">10</span> <button class="btn-secondary px-2 py-1 text-sm rounded-md mr-2" onclick="window.allocateStat('agility')">+</button></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الذكاء:</span> <span id="stat-intelligence">10</span> <button class="btn-secondary px-2 py-1 text-sm rounded-md mr-2" onclick="window.allocateStat('intelligence')">+</button></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">التحمل:</span> <span id="stat-stamina-val">10</span> <button class="btn-secondary px-2 py-1 text-sm rounded-md mr-2" onclick="window.allocateStat('stamina')">+</button></p>
+                        <p class="text-xl mb-4"><span class="font-bold text-purple-300">الحكمة:</span> <span id="stat-wisdom">10</span> <button class="btn-secondary px-2 py-1 text-sm rounded-md mr-2" onclick="window.allocateStat('wisdom')">+</button></p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-2xl font-semibold mb-4 text-purple-300">التقدم الكلي</p>
+                    <div class="progress-bar-container">
+                        <div id="xp-progress-bar" class="progress-bar" style="--progress-width: 0%;"></div>
+                    </div>
+                    <p class="text-sm mt-2 text-gray-400"><span id="current-xp">0</span> / <span id="next-level-xp">100</span> XP</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 mt-12">
+                <button onclick="window.saveProgress()" class="btn-primary inline-block px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-save ml-2"></i> حفظ التقدم
+                </button>
+                <button onclick="window.loadProgress()" class="btn-secondary inline-block px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-upload ml-2"></i> تحميل التقدم
+                </button>
+                <button onclick="window.showQuestLogModal()" class="btn-primary inline-block px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-clipboard-list ml-2"></i> سجل المهام
+                </button>
+                <button onclick="window.showJobChangeModal()" class="job-change-btn inline-block px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-user-tag ml-2"></i> تغيير المهنة
+                </button>
+                <button onclick="window.simulateRandomGate()" class="btn-secondary inline-block px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-door-open ml-2"></i> بوابة عشوائية
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-24 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-star ml-3"></i> تطوير قدراتك ومهاراتك
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                كل إحصائية أساسية (القوة، الرشاقة، الذكاء، التحمل، الحكمة) تساهم في تطوير مهاراتك الحياتية. ركز على الإحصائيات التي تدعم المهارات التي ترغب في إتقانها!
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4"><i class="fas fa-fist-raised ml-2"></i> المهارات النشطة</h3>
+                    <p class="text-gray-400 mb-4">مهارات يمكنك تفعيلها يدوياً لتحقيق تأثيرات محددة.</p>
+                    <div class="space-y-4" id="active-skills-container">
+                        </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4"><i class="fas fa-brain ml-2"></i> المهارات الكامنة</h3>
+                    <p class="text-gray-400 mb-4">صفات أو عادات تكتسبها وتمنحك مكافآت دائمة.</p>
+                    <div class="space-y-4" id="passive-skills-container">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="daily-quest" class="py-16 md:py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-calendar-check ml-3"></i> المهمة اليومية
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="daily-quests-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="dungeons" class="py-16 md:py-24 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-dungeon ml-3"></i> الزنزانات
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                ادخل الزنزانات الأسبوعية والشهرية لتحديات فريدة، أو اطلب مهمة مخصصة من المؤسس!
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="dungeons-container">
+                </div>
+            <div class="text-center mt-12">
+                <button onclick="window.generateQuestFromLLM()" class="btn-primary inline-block px-10 py-4 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-wand-magic-sparkles ml-2"></i> ✨ اطلب مهمة مخصصة ✨
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="inventory" class="py-16 md:py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-box-open ml-3"></i> المخزون
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                هنا تجد الموارد والأدوات التي اكتسبتها في رحلتك. استخدمها بحكمة لتعزيز تقدمك!
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="inventory-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="titles" class="py-16 md:py-24 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-award ml-3"></i> الألقاب والإنجازات
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                لقد حققت إنجازات عظيمة في رحلتك. هذه الألقاب دليل على قوتك وتفانيك!
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="titles-container">
+                </div>
+             <div class="text-center mt-12">
+                <button onclick="window.showSystemMessage('قريباً!', 'المزيد من الألقاب والإنجازات قادمة قريباً!')" class="btn-primary inline-block px-10 py-4 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-trophy ml-2"></i> شاهد كل الألقاب (مستقبلاً)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="companions" class="py-16 md:py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-users-cog ml-3"></i> الرفقاء والمرشدون
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                هؤلاء الرفقاء هم مصادر دعم ومعرفة لا تقدر بثمن في رحلتك لتطوير الذات.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="companions-container">
+                </div>
+            <div class="text-center mt-12">
+                <button onclick="window.showSystemMessage('قريباً!', 'المزيد من الرفقاء والمرشدين سينضمون إليك قريباً!')" class="btn-primary inline-block px-10 py-4 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-user-friends ml-2"></i> اكتشف رفقاء جدد (مستقبلاً)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="exchange" class="py-16 md:py-24 bg-gray-900"> <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-store ml-3"></i> المتجر
+            </h2>
+            <p class="text-lg text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                استخدم "الجوهر" الذي اكتسبته لشراء موارد وأدوات قيمة تساعدك في رحلة الارتقاء.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="exchange-container">
+                </div>
+            <div class="text-center mt-12">
+                <button onclick="window.showSystemMessage('قريباً!', 'المتجر سيفتح أبوابه قريباً بالمزيد من العناصر!')" class="btn-primary inline-block px-10 py-4 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-hand-holding-usd ml-2"></i> تصفح المتجر (مستقبلاً)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="py-16 md:py-24 bg-gray-800">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+                <i class="fas fa-users ml-3"></i> مجتمع الصيادين
+            </h2>
+            
+            <div class="community-card">
+                <h4><i class="fas fa-bullhorn ml-2"></i> لوحة إعلانات المؤسس</h4>
+                <p class="text-gray-300">مرحباً أيها الصيادون! تذكروا، القوة الحقيقية تكمن في المثابرة والتعلم المستمر. لا تتوقفوا عن تحدي أنفسكم!</p>
+                <p class="text-gray-400 text-sm mt-2">- المؤسس</p>
+            </div>
+
+            <div class="community-card">
+                <h4><i class="fas fa-star ml-2"></i> أشهر الصيادين</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="text-xl font-semibold text-purple-300">صياد الرعد</h5>
+                        <p class="text-gray-400 text-sm">معروف بسرعة بديهته وقدرته على إكمال أصعب المهام اليومية ببراعة.</p>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-purple-300">حكيمة الغابة</h5>
+                        <p class="text-gray-400 text-sm">خبيرة في المهارات الكامنة، وقادرة على استخلاص أقصى فائدة من كل مورد.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="community-card text-center">
+                <h4><i class="fas fa-comments ml-2"></i> نقاشات الأكاديمية</h4>
+                <p class="text-gray-300">قريباً: ساحة مخصصة للتفاعل مع الصيادين الآخرين، تبادل الخبرات، وتكوين الفرق لمواجهة التحديات الكبرى!</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600 transition-colors text-3xl" title="انضم إلى ديسكورد"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-blue-500 hover:text-blue-700 transition-colors text-3xl" title="تابعنا على تويتر"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <form id="contact-form" class="space-y-6 card p-8 mt-10">
+                <h3 class="text-2xl font-semibold mb-4 text-white">تواصل مع إدارة الأكاديمية</h3>
+                <div>
+                    <label for="community_name" class="block text-gray-300 text-lg font-medium mb-2">اسم الصياد</label>
+                    <input type="text" id="community_name" name="name" class="w-full" placeholder="أدخل اسمك المستعار كصياد" required>
+                </div>
+                <div>
+                    <label for="community_email" class="block text-gray-300 text-lg font-medium mb-2">بريدك الإلكتروني (للتواصل)</label>
+                    <input type="email" id="community_email" name="email" class="w-full" placeholder="أدخل بريدك الإلكتروني" required>
+                </div>
+                <div>
+                    <label for="community_message" class="block text-gray-300 text-lg font-medium mb-2">رسالتك / سؤالك</label>
+                    <textarea id="community_message" name="message" rows="6" class="w-full" placeholder="اكتب رسالتك هنا..." required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane ml-2"></i> إرسال الرسالة
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-950 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 أكاديمية الصيادين. جميع الحقوق محفوظة. <span class="text-purple-500">ارتقِ بمستواك!</span></p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors">الخصوصية</a>
+                <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors">الشروط</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="system-message-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <button class="modal-close-btn" onclick="window.hideSystemMessage()"><i class="fas fa-times"></i></button>
+            <h3 id="system-message-title">رسالة من المؤسس</h3>
+            <p id="system-message-text">لقد أكملت المهمة بنجاح!</p>
+            <button class="btn-primary px-6 py-2 mt-4 rounded-md" onclick="window.hideSystemMessage()">حسناً</button>
+        </div>
+    </div>
+
+    <div id="info-modal" class="modal-overlay"> <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.hideInfoModal()"><i class="fas fa-times"></i></button>
+            <div id="info-modal-content">
+                </div>
+        </div>
+    </div>
+    
+    <div id="timed-quest-modal" class="modal-overlay"> <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.hideTimedQuestModal()"><i class="fas fa-times"></i></button>
+            <div id="timed-quest-modal-content">
+                 </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal-overlay"> <div class="modal-content text-center">
+            <h3 id="confirmation-modal-title" class="text-purple-400">تأكيد</h3>
+            <p id="confirmation-modal-text" class="text-lg mt-4 text-gray-300">هل أنت متأكد؟</p>
+            <div class="flex justify-center gap-4 mt-6">
+                <button id="confirm-yes-btn" class="btn-primary px-8 py-3 rounded-full text-lg">نعم</button>
+                <button id="confirm-no-btn" class="btn-danger px-8 py-3 rounded-full text-lg">لا</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="job-change-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.hideJobChangeModal()"><i class="fas fa-times"></i></button>
+            <h3 class="text-center"><i class="fas fa-user-tag ml-3"></i> تغيير المهنة</h3>
+            <p class="text-lg mt-4 text-gray-300 text-center">اختر مسار تخصصك لفتح قدرات ومهام جديدة.</p>
+            <div id="job-options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                </div>
+            <p class="text-sm text-red-400 text-center mt-6" id="job-change-status">تغيير المهنة خيار لا رجعة فيه!</p>
+        </div>
+    </div>
+
+    <div id="quest-log-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.hideQuestLogModal()"><i class="fas fa-times"></i></button>
+            <h3 class="text-center"><i class="fas fa-clipboard-list ml-3"></i> سجل المهام</h3>
+            <div class="mt-4">
+                <h4 class="text-xl font-bold text-purple-300 mb-3">المهام النشطة:</h4>
+                <div id="active-quests-list" class="space-y-3 max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-xl font-bold text-purple-300 mb-3">المهام المكتملة:</h4>
+                <div id="completed-quests-list" class="space-y-3 max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-xl font-bold text-purple-300 mb-3">المهام الفاشلة:</h4>
+                <div id="failed-quests-list" class="space-y-3 max-h-48 overflow-y-auto">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="equipment-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.hideEquipmentModal()"><i class="fas fa-times"></i></button>
+            <h3 class="text-center"><i class="fas fa-hammer ml-3"></i> إدارة المعدات</h3>
+            <div class="mt-6 grid grid-cols-2 gap-4">
+                <div class="card p-4 text-center">
+                    <h4 class="text-xl font-bold text-white mb-2">رأس: <span id="equip-head-name">لا شيء</span></h4>
+                    <i class="fas fa-helmet-battle text-5xl text-gray-500"></i>
+                    <button class="btn-secondary px-3 py-1 text-sm rounded-md mt-2" onclick="window.unequipItem('head')">خلع</button>
+                </div>
+                <div class="card p-4 text-center">
+                    <h4 class="text-xl font-bold text-white mb-2">جسد: <span id="equip-body-name">لا شيء</span></h4>
+                    <i class="fas fa-tshirt text-5xl text-gray-500"></i>
+                    <button class="btn-secondary px-3 py-1 text-sm rounded-md mt-2" onclick="window.unequipItem('body')">خلع</button>
+                </div>
+                <div class="card p-4 text-center">
+                    <h4 class="text-xl font-bold text-white mb-2">سلاح: <span id="equip-weapon-name">لا شيء</span></h4>
+                    <i class="fas fa-sword text-5xl text-gray-500"></i>
+                    <button class="btn-secondary px-3 py-1 text-sm rounded-md mt-2" onclick="window.unequipItem('weapon')">خلع</button>
+                </div>
+                <div class="card p-4 text-center">
+                    <h4 class="text-xl font-bold text-white mb-2">ملحق: <span id="equip-accessory-name">لا شيء</span></h4>
+                    <i class="fas fa-ring text-5xl text-gray-500"></i>
+                    <button class="btn-secondary px-3 py-1 text-sm rounded-md mt-2" onclick="window.unequipItem('accessory')">خلع</button>
+                </div>
+            </div>
+            <p class="text-lg font-bold text-purple-300 mt-6">المعدات المتاحة في المخزون:</p>
+            <div id="available-equipment-list" class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4 max-h-60 overflow-y-auto">
+                </div>
+        </div>
+    </div>
+
+    <div id="random-gate-modal" class="modal-overlay"> 
+        <div class="modal-content text-center">
+            <h3 class="text-purple-400"><i class="fas fa-door-open ml-3"></i> ظهرت بوابة عشوائية!</h3>
+            <p class="text-lg mt-4 text-gray-300">لقد ظهر تحدٍ مفاجئ في طريقك. هل أنت مستعد لدخوله؟</p>
+            <p class="text-xl font-bold text-white mt-4" id="random-gate-difficulty">الرتبة: مُحترف</p> 
+            <p class="text-xl font-bold text-green-400 mb-6" id="random-gate-reward-preview">المكافأة: ؟؟ XP، ؟؟ جوهر</p>
+             <p class="text-md text-blue-300 mb-4">تكلفة الدخول: <span id="random-gate-cost">20</span> طاقة</p>
+            <div class="flex justify-center gap-4">
+                <button class="btn-primary px-8 py-3 rounded-full text-lg" onclick="window.acceptRandomGate()">
+                    <i class="fas fa-check-circle ml-2"></i> قبول البوابة
+                </button>
+                <button class="btn-danger px-8 py-3 rounded-full text-lg" onclick="window.declineRandomGate()">
+                    <i class="fas fa-times-circle ml-2"></i> رفض البوابة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Player Data
+        let player = {
+            name: "صياد الظلال", 
+            level: 1,
+            xp: 0,
+            xpToNextLevel: 100,
+            rank: "مُبتدئ", 
+            availablePoints: 0,
+            health: 100,
+            maxHealth: 100,
+            stamina: 100,
+            maxStamina: 100,
+            aetherShards: 0, 
+            statusAilments: [], 
+            job: null, 
+            stats: { strength: 10, agility: 10, intelligence: 10, stamina: 10, wisdom: 10 },
+            skills: {
+                knowledge: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-book-reader', name: 'المعرفة' },
+                fitness: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-running', name: 'اللياقة البدنية' },
+                creativity: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-lightbulb', name: 'الإبداع' },
+                discipline: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-user-shield', name: 'الانضباط' },
+                focus: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-crosshairs', name: 'التركيز' },
+                communication: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-comments', name: 'التواصل' },
+                wisdom: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-scroll', name: 'الحكمة' },
+                meditation: { 
+                    level: 0, xp: 0, xpToNextLevel: 20, type: 'active', icon: 'fas fa-leaf', name: 'تأمل سريع', 
+                    description: 'يستعيد بعض الطاقة والتركيز.', 
+                    effects: [
+                        { funcName: 'restoreStamina', params: [20] }, 
+                        { funcName: 'removeAilment', params: ['distracted'] },
+                        { funcName: 'showSystemMessage', params: ['مهارة نشطة', 'لقد مارست التأمل السريع! شعرت بتحسن في الطاقة والتركيز.'] },
+                        { funcName: 'addSkillXP', params: ['focus', 5] }
+                    ]
+                },
+                power_nap: { 
+                    level: 0, xp: 0, xpToNextLevel: 30, type: 'active', icon: 'fas fa-moon', name: 'قيلولة القوة', 
+                    description: 'يستعيد كمية جيدة من الصحة.', 
+                    effects: [
+                        { funcName: 'restoreHealth', params: [30] },
+                        { funcName: 'removeAilment', params: ['fatigue'] },
+                        { funcName: 'showSystemMessage', params: ['مهارة نشطة', 'لقد أخذت قيلولة القوة! شعرت بتحسن كبير في صحتك.'] },
+                        { funcName: 'addSkillXP', params: ['fitness', 5] }
+                    ]
+                } 
+            },
+            inventory: [
+                { id: "item_productivity_book", name: "كتاب: أساسيات الإنتاجية", icon: "fas fa-book", description: "يزيد من انضباطك وتركيزك.", 
+                  effects: [
+                      { funcName: 'addSkillXP', params: ['discipline', 10] }, 
+                      { funcName: 'addSkillXP', params: ['focus', 10] }, 
+                      { funcName: 'showSystemMessage', params: ['كتاب تم استخدامه!', 'لقد قرأت كتاب أساسيات الإنتاجية! انضباطك وتركيزك قد زادا.'] }, 
+                      { funcName: 'removeItem', params: ['item_productivity_book'] }
+                  ], rarity: 'common' },
+                { id: "item_pomodoro_timer", name: "أداة: مؤقت بومودورو", icon: "fas fa-stopwatch-20", description: "أداة تساعد على إدارة الوقت بفعالية وزيادة التركيز.", rarity: 'rare', equipmentSlot: 'accessory', statBonus: {focus: 5, intelligence: 2}},
+                { id: "item_healthy_snack", name: "وجبة خفيفة صحية", icon: "fas fa-apple-alt", description: "تستعيد بعض الصحة والطاقة.", 
+                  effects: [
+                      { funcName: 'restoreHealth', params: [10] }, 
+                      { funcName: 'restoreStamina', params: [10] }, 
+                      { funcName: 'showSystemMessage', params: ['وجبة خفيفة!', 'لقد تناولت وجبة خفيفة صحية! شعرت ببعض الانتعاش.'] }, 
+                      { funcName: 'removeItem', params: ['item_healthy_snack'] }
+                  ], rarity: 'common' },
+                { id: "item_armor_of_resilience", name: "درع المرونة", icon: "fas fa-shield-alt", description: "يزيد من التحمل ويقلل من تأثير الإرهاق.", rarity: 'epic', equipmentSlot: 'body', statBonus: {stamina: 10, wisdom: 5}},
+                { id: "item_book_of_ancient_wisdom", name: "كتاب الحكمة القديمة", icon: "fas fa-book-sparkles", description: "كتاب سحري يزيد الحكمة بشكل كبير.", 
+                  effects: [
+                      { funcName: 'addStatPointsDirect', params: ['wisdom', 20] }, 
+                      { funcName: 'addSkillXP', params: ['wisdom', 25] }, 
+                      { funcName: 'showSystemMessage', params: ['حكمة أسطورية!', 'لقد حصلت على حكمة هائلة من الكتاب القديم!'] }, 
+                      { funcName: 'removeItem', params: ['item_book_of_ancient_wisdom'] }
+                  ], rarity: 'legendary' }
+            ],
+            equippedItems: { head: null, body: null, weapon: null, accessory: null },
+            titles: [ 
+                { id: "title_beginner_hunter", name: "صياد مبتدئ", description: "لقب يمنح للصيادين الجدد الذين بدأوا رحلتهم.", earned: true },
+                { id: "title_task_master", name: "سيد المهام", description: "أكملت 10 مهام بنجاح.", earned: false, condition: () => player.questLog.completed.length >= 10 },
+                { id: "title_wisdom_adept", name: "حكيم ناشئ", description: "وصلت إلى المستوى 5 في مهارة الحكمة.", earned: false, condition: () => player.skills.wisdom && player.skills.wisdom.level >= 5 },
+                { id: "title_wealthy_hunter", name: "صياد ثري", description: "جمعت 500 جوهر.", earned: false, condition: () => player.aetherShards >= 500 },
+                { id: "title_dungeon_crawler", name: "مستكشف الزنزانات", description: "أكملت 5 زنزانات (غير يومية).", earned: false, condition: () => player.questLog.completed.filter(q => q.type !== 'يومية' && q.type !== 'مهمة مخصصة' && q.type !== 'بوابة عشوائية').length >= 5 },
+                { id: "title_elite_challenger", name: "متحدي النخبة", description: "أكملت زنزانة من رتبة 'سيد' أو أعلى.", earned: false, condition: () => player.questLog.completed.some(q => q.rank === 'سيد' || q.rank === 'أسطوري') }
+            ],
+            companions: [
+                { id: "comp_productivity_guide", name: "مرشد الإنتاجية", icon: "fas fa-robot", description: "رفيق افتراضي يقدم نصائح لزيادة إنتاجيتك في المهام اليومية.", persona: "أنا مرشد الإنتاجية، مهمتي هي مساعدتك على إدارة وقتك بفعالية وتحقيق أقصى إنتاجية. أسئلني عن أي شيء يتعلق بالتخطيط، إدارة المهام، أو التغلب على التسويف." },
+                { id: "comp_fitness_coach", name: "مدرب اللياقة", icon: "fas fa-dumbbell", description: "رفيق افتراضي يقدم خطط تمارين ونصائح صحية لتعزيز لياقتك.", persona: "أنا مدرب اللياقة، مهمتي هي إرشادك نحو صحة أفضل ولياقة بدنية أعلى. أسئلني عن التمارين، التغذية، أو كيفية بناء عادات صحية." }
+            ],
+            dailyQuestsStatus: [ 
+                { id: "daily_focus_meditation", completed: false, lastReset: 0 },
+                { id: "daily_quick_learning", completed: false, lastReset: 0 },
+                { id: "daily_physical_challenge", completed: false, lastReset: 0 }
+            ],
+            questLog: { active: [], completed: [], failed: [] },
+            jobChanged: false,
+            dungeonTasksCompletion: {},
+            lastVitalRegenTimestamp: 0, 
+            activeTimedQuest: null 
+        };
+
+        // Static Data
+        const dungeons = [ 
+            {
+                id: "weekly_routine_shift", type: "زنزانة أسبوعية", name: "تحويل الروتين الأسبوعي", 
+                description: "هذا الأسبوع، اكسر روتينك المعتاد! الهدف هو تجربة أشياء جديدة وتوسيع آفاقك.",
+                tasks: [
+                    { text: "جرب وصفة طعام جديدة لم تطبخها من قبل.", completed: false },
+                    { text: "اذهب في نزهة لمدة 30 دقيقة في مكان لم تزره مؤخرًا.", completed: false },
+                    { text: "اقرأ 3 مقالات أو فصول من كتاب خارج مجال اهتمامك المعتاد.", completed: false },
+                    { text: "تواصل مع صديق قديم لم تتحدث معه منذ فترة.", completed: false },
+                    { text: "خصص ساعة واحدة لتعلم بداية مهارة جديدة تمامًا (لغة، رسم، برمجة بسيطة).", completed: false }
+                ],
+                rank: "مُحترف", xpReward: 150, aetherShardsReward: 75, skillReward: { skill: "creativity", amount: 15 }, 
+                energyCost: 20, estimatedDurationMinutes: 7 * 24 * 60, 
+                enemy: "وحش الرتابة", icon: "fas fa-calendar-alt", openingDayOfWeek: 1, 
+                durationHours: (7*24) 
+            },
+            {
+                id: "monthly_deep_focus", type: "زنزانة شهرية", name: "شهر التركيز العميق", 
+                description: "هذا الشهر، تحدى نفسك لإنجاز مشروع شخصي أو هدف كبير يتطلب تركيزًا عميقًا.",
+                tasks: [
+                    { text: "حدد مشروعًا أو هدفًا رئيسيًا واحدًا للشهر.", completed: false },
+                    { text: "قسم المشروع إلى مهام أسبوعية صغيرة وقابلة للتحقيق.", completed: false },
+                    { text: "خصص 90 دقيقة على الأقل، 4 أيام في الأسبوع، للعمل المركز على هذا المشروع (بدون مشتتات).", completed: false },
+                    { text: "راجع تقدمك في نهاية كل أسبوع واضبط خطتك إذا لزم الأمر.", completed: false },
+                    { text: "احتفل بإنجازك للمشروع أو بالتقدم الكبير الذي أحرزته في نهاية الشهر.", completed: false }
+                ],
+                rank: "خبير", xpReward: 350, aetherShardsReward: 175, skillReward: { skill: "discipline", amount: 25 }, 
+                energyCost: 20, estimatedDurationMinutes: 30 * 24 * 60,
+                enemy: "شبح التسويف", icon: "fas fa-brain", openingDayOfMonth: 1, 
+                durationHours: (30*24) 
+            },
+             {
+                id: "elite_knowledge_expansion", type: "النخبة", name: "تحدي توسيع المعرفة", 
+                description: "اقرأ كتابًا كاملاً (غير خيالي) في مجال جديد تمامًا عليك هذا الشهر، ولخص أهم 3 أفكار تعلمتها.",
+                tasks: [ 
+                    { text: "اختر كتابًا غير خيالي في مجال جديد كليًا.", completed: false },
+                    { text: "ضع خطة قراءة لإكمال الكتاب خلال الشهر.", completed: false },
+                    { text: "دوّن ملاحظات أثناء القراءة.", completed: false },
+                    { text: "لخص أهم 3 أفكار رئيسية تعلمتها من الكتاب كتابيًا.", completed: false },
+                ],
+                rank: "سيد", xpReward: 500, aetherShardsReward: 250, skillReward: { skill: "knowledge", amount: 30 }, 
+                energyCost: 20, estimatedDurationMinutes: 15 * 24 * 60, 
+                enemy: "حدود الفهم الحالية", icon: "fas fa-landmark"
+            }
+        ];
+
+        const dailyQuestsData = [ 
+            {
+                id: "daily_focus_meditation", name: "تأمل الصباح", 
+                description: "ابدأ يومك بـ 10 دقائق من التأمل لصفاء الذهن.",
+                xpReward: 30, aetherShardsReward: 10, skillReward: { skill: "focus", amount: 8 }, rank: "مُبتدئ", icon: "fas fa-spa", energyCost: 10, estimatedDurationMinutes: 15 
+            },
+            {
+                id: "daily_quick_learning", name: "جرعة معرفة سريعة", 
+                description: "اقرأ مقالاً مفيداً أو شاهد فيديو تعليمياً قصيراً (5-10 دقائق).",
+                xpReward: 25, aetherShardsReward: 8, skillReward: { skill: "knowledge", amount: 7 }, rank: "مُبتدئ", icon: "fas fa-book-open", energyCost: 10, estimatedDurationMinutes: 20
+            },
+            {
+                id: "daily_physical_challenge", name: "تحدي بدني صغير", 
+                description: "قم بـ 20 تمرين ضغط أو 30 تمرين قرفصاء أو المشي السريع لمدة 15 دقيقة.",
+                xpReward: 35, aetherShardsReward: 12, skillReward: { skill: "fitness", amount: 9 }, rank: "مُبتدئ", icon: "fas fa-dumbbell", energyCost: 10, estimatedDurationMinutes: 25
+            }
+        ];
+
+
+        const exchangeItems = [ 
+            { id: "exchange_advanced_book", name: "كتاب المعرفة المتقدم", icon: "fas fa-book-sparkles", description: "كتاب نادر يزيد المعرفة بشكل كبير.", cost: 200, type: "item", rarity: 'rare', effects: [{ funcName: 'addSkillXP', params: ['knowledge', 50] }] },
+            { id: "exchange_focus_potion", name: "جرعة التركيز", icon: "fas fa-flask-potion", description: "جرعة تزيد التركيز مؤقتًا.", cost: 100, type: "item", rarity: 'common', 
+              effects: [
+                  { funcName: 'addSkillXP', params: ['focus', 20] }, 
+                  { funcName: 'showSystemMessage', params: ['جرعة مُنشطة!', 'جرعة التركيز تزيد من تركيزك بشكل ملحوظ!'] }, 
+                  { funcName: 'removeItem', params: ['exchange_focus_potion'] }
+              ] }, 
+            { id: "exchange_mentor_contract", name: "عقد مرشد جديد", icon: "fas fa-file-contract", description: "استدعاء مرشد جديد لمساعدتك.", cost: 500, type: "companion", companionId: "comp_leadership_mentor", rarity: 'epic', companionData: {id: "comp_leadership_mentor", name: "مرشد القيادة", icon: "fas fa-user-tie", description: "مرشد متخصص في تطوير مهارات القيادة واتخاذ القرار.", persona: "أنا مرشد القيادة، أساعدك على بناء الثقة واتخاذ القرارات الصعبة. أسئلني عن التحديات القيادية أو كيفية تحفيز فريقك."} },
+            { id: "exchange_legendary_sword", name: "سيف الإرادة الأسطوري", icon: "fas fa-khanda", description: "يزيد من الانضباط والقوة بشكل كبير.", cost: 1000, type: "item", rarity: 'legendary', equipmentSlot: 'weapon', statBonus: {discipline: 20, strength: 15}} 
+        ];
+
+        const jobs = [
+            { id: "productivity_master", name: "سيد الإنتاجية", description: "تخصص في إدارة الوقت والتسويف. يمنح مكافآت في الانضباط والتركيز.", unlocks: { title: {id: "title_master_of_time", name: "سيد الوقت", description: "لقب يمنح لإتقان فن إدارة الوقت.", earned: true} , companion: {id: "comp_time_wizard", name: "ساحر الوقت", icon: "fas fa-hourglass-half", description: "مرشد متخصص في استغلال كل ثانية.", persona: "الوقت كالسيف، وأنا هنا لأعلمك كيف تستخدمه ببراعة. اسألني عن أي تحدٍ تواجهه في إدارة وقتك."} } },
+            { id: "fitness_guru", name: "خبير اللياقة", description: "تخصص في تعزيز الصحة البدنية والقدرة على التحمل. يمنح مكافآت في اللياقة والقوة.", unlocks: { title: {id: "title_iron_will", name: "إرادة حديدية", description: "لقب يمنح لامتلاك إرادة لا تلين.", earned: true} , companion: {id: "comp_endurance_spirit", name: "روح التحمل", icon: "fas fa-heartbeat", description: "رفيق يلهمك بالاستمرارية والقوة.", persona: "الجسد السليم هو حصنك المنيع. أنا هنا لأدفعك لتجاوز حدودك. اسألني عن أي شيء يتعلق باللياقة أو بناء القوة."} } },
+            { id: "creative_innovator", name: "مبتكر إبداعي", description: "تخصص في توليد الأفكار وحل المشكلات بطرق مبتكرة. يمنح مكافآت في الإبداع والذكاء.", unlocks: { title: {id: "title_mind_weaver", name: "حائك العقول", description: "لقب يمنح لإتقان فن الإبداع.", earned: true} , companion: {id: "comp_muse_spirit", name: "روح الإلهام", icon: "fas fa-lightbulb-on", description: "رفيق يجلب لك الإلهام والأفكار الجديدة.", persona: "الأفكار هي بذور التغيير. أنا هنا لأساعدك على رعايتها وتنميتها. اسألني عن أي تحد إبداعي تواجهه."} } } 
+        ];
+
+        const statusAilmentData = {
+            fatigue: { id: 'fatigue', name: 'إرهاق', description: 'يقلل من التحمل والطاقة بشكل ملحوظ.', icon: 'fas fa-bed', severity: 1, statDebuff: {stamina: -10, agility: -5}, 
+                       applyEffects: [{ funcName: 'modifyStaminaDirect', params: [-10] }, { funcName: 'modifyHealthDirect', params: [-5] }] },
+            procrastination: { id: 'procrastination', name: 'تسويف', description: 'يقلل من الانضباط والتركيز، ويؤخر تقدمك.', icon: 'fas fa-hourglass-end', severity: 1, statDebuff: {discipline: -5, focus: -5}, 
+                               applyEffects: [{ funcName: 'modifySkillXpDirect', params: ['discipline', -5] }] }, 
+            distracted: { id: 'distracted', name: 'تشتت', description: 'يقلل من التركيز والذكاء، ويجعل المهام أكثر صعوبة.', icon: 'fas fa-satellite-dish', severity: 1, statDebuff: {focus: -5, intelligence: -5}, 
+                            applyEffects: [{ funcName: 'modifySkillXpDirect', params: ['focus', -5] }] } 
+        };
+        
+        // New Rank System (5 Ranks)
+        const newRanks = {
+            1: "مُبتدئ", 
+            10: "مُحترف", 
+            25: "خبير", 
+            50: "سيد", 
+            75: "أسطوري" 
+        };
+        const rankEnumForSchema = Object.values(newRanks);
+        let activeTimers = {}; 
+
+        // --- Helper functions for direct stat/skill modification (used by effects) ---
+        window.addStatPointsDirect = function(statKey, amount) {
+            if (player.stats.hasOwnProperty(statKey)) {
+                player.stats[statKey] += amount;
+            }
+        };
+        window.modifyStaminaDirect = function(amount) {
+            player.stamina = Math.max(0, player.stamina + amount);
+            player.stamina = Math.min(player.maxStamina, player.stamina);
+        };
+        window.modifyHealthDirect = function(amount) {
+            player.health = Math.max(0, player.health + amount);
+            player.health = Math.min(player.maxHealth, player.health);
+        };
+        window.modifySkillXpDirect = function(skillKey, amount) {
+             if (player.skills[skillKey]) {
+                player.skills[skillKey].xp = Math.max(0, player.skills[skillKey].xp + amount);
+                // Note: This direct modification does not trigger skill level up,
+                // only addSkillXP does. This is intentional for debuffs.
+            }
+        };
+        
+        // --- Centralized effect execution ---
+        window.executeEffects = function(effectsArray) {
+            if (!Array.isArray(effectsArray)) return;
+
+            effectsArray.forEach(effect => {
+                if (effect && typeof effect.funcName === 'string' && typeof window[effect.funcName] === 'function') {
+                    try {
+                        window[effect.funcName].apply(null, effect.params || []);
+                    } catch (e) {
+                        console.error(`Error executing effect function ${effect.funcName}:`, e);
+                    }
+                } else {
+                    console.warn("Invalid effect object:", effect);
+                }
+            });
+        };
+
+
+        window.showInfoModal = function(htmlContent) {
+            const modalContentElement = document.getElementById('info-modal-content');
+            if (modalContentElement) {
+                modalContentElement.innerHTML = htmlContent;
+            }
+            const modalOverlayElement = document.getElementById('info-modal');
+            if (modalOverlayElement) {
+                modalOverlayElement.classList.add('active');
+            }
+        };
+
+        window.hideInfoModal = function() {
+            document.getElementById('info-modal').classList.remove('active');
+            for (const questId in activeTimers) {
+                clearInterval(activeTimers[questId]);
+                delete activeTimers[questId];
+            }
+        };
+         window.hideTimedQuestModal = function() {
+            if (player.activeTimedQuest && player.activeTimedQuest.timerIntervalId) {
+                clearInterval(player.activeTimedQuest.timerIntervalId);
+            }
+            player.activeTimedQuest = null;
+            document.getElementById('timed-quest-modal').classList.remove('active');
+        };
+
+        window.showConfirmationModal = function(message, onConfirm, onCancel) {
+            document.getElementById('confirmation-modal-text').textContent = message;
+            const confirmBtn = document.getElementById('confirm-yes-btn');
+            const cancelBtn = document.getElementById('confirm-no-btn');
+
+            confirmBtn.onclick = () => {
+                onConfirm();
+                document.getElementById('confirmation-modal').classList.remove('active');
+            };
+            cancelBtn.onclick = () => {
+                if (onCancel) onCancel();
+                document.getElementById('confirmation-modal').classList.remove('active');
+            };
+            document.getElementById('confirmation-modal').classList.add('active');
+        };
+
+
+        window.showSystemMessage = function(title, text) {
+            document.getElementById('system-message-title').textContent = title;
+            document.getElementById('system-message-text').textContent = text;
+            document.getElementById('system-message-modal').classList.add('active');
+        };
+
+        window.hideSystemMessage = function() {
+            document.getElementById('system-message-modal').classList.remove('active');
+        };
+        
+        window.updateUI = function() {
+            document.getElementById('hunter-name').textContent = player.name;
+            document.getElementById('hunter-level').textContent = player.level;
+            document.getElementById('hunter-rank').textContent = window.getRank(player.level);
+            document.getElementById('available-points').textContent = player.availablePoints;
+            document.getElementById('hunter-job').textContent = player.job ? player.job.name : 'لا يوجد';
+            document.getElementById('aether-shards-display').textContent = player.aetherShards;
+
+
+            document.getElementById('stat-strength').textContent = player.stats.strength;
+            document.getElementById('stat-agility').textContent = player.stats.agility;
+            document.getElementById('stat-intelligence').textContent = player.stats.intelligence;
+            document.getElementById('stat-stamina-val').textContent = player.stats.stamina; 
+            document.getElementById('stat-wisdom').textContent = player.stats.wisdom;
+
+            document.getElementById('current-health').textContent = player.health;
+            document.getElementById('max-health').textContent = player.maxHealth;
+            document.getElementById('health-bar-fill').style.width = `${(player.health / player.maxHealth) * 100}%`;
+
+            document.getElementById('current-stamina').textContent = player.stamina;
+            document.getElementById('max-stamina').textContent = player.maxStamina;
+            document.getElementById('stamina-bar-fill').style.width = `${(player.stamina / player.maxStamina) * 100}%`;
+
+            const ailmentsDisplay = document.getElementById('status-ailments-display');
+            ailmentsDisplay.innerHTML = '';
+            if (player.statusAilments.length === 0) {
+                ailmentsDisplay.textContent = 'لا يوجد';
+            } else {
+                player.statusAilments.forEach(ailmentId => { 
+                    const ailment = statusAilmentData[ailmentId];
+                    if (ailment) {
+                        const badge = document.createElement('span');
+                        badge.className = 'status-ailment-badge';
+                        badge.innerHTML = `<i class="${ailment.icon} ml-1"></i>${ailment.name}`;
+                        badge.onclick = () => window.showStatusAilmentModal(ailment.id);
+                        ailmentsDisplay.appendChild(badge);
+                    }
+                });
+            }
+
+            const xpPercentage = (player.xp / player.xpToNextLevel) * 100;
+            document.getElementById('xp-progress-bar').style.setProperty('--progress-width', `${xpPercentage}%`);
+            document.getElementById('current-xp').textContent = player.xp;
+            document.getElementById('next-level-xp').textContent = player.xpToNextLevel;
+
+            window.renderSkills();
+            window.updateDailyQuestUI();
+            window.renderDungeons(); 
+            window.renderInventory();
+            window.renderTitles();
+            window.renderCompanions();
+            window.renderExchange();
+            window.renderEquipmentDisplay();
+        };
+
+        window.getRank = function(level) {
+            if (level >= 75) return newRanks[75]; 
+            if (level >= 50) return newRanks[50]; 
+            if (level >= 25) return newRanks[25]; 
+            if (level >= 10) return newRanks[10]; 
+            return newRanks[1];                   
+        };
+        
+        window.renderSkills = function() {
+            const activeSkillsContainer = document.getElementById('active-skills-container');
+            const passiveSkillsContainer = document.getElementById('passive-skills-container');
+            activeSkillsContainer.innerHTML = '';
+            passiveSkillsContainer.innerHTML = '';
+
+            for (const skillKey in player.skills) {
+                const skill = player.skills[skillKey];
+                const skillPercentage = (skill.xp / skill.xpToNextLevel) * 100;
+                const skillCardHtml = `
+                    <div class="card p-4 flex items-center justify-between ${skill.type === 'active' ? 'cursor-pointer hover:bg-gray-700' : ''}" ${skill.type === 'active' ? `onclick="window.showActiveSkillModal('${skillKey}')"` : `onclick="window.showPassiveSkillModal('${skillKey}')"`}>
+                        <div class="flex items-center">
+                            <i class="${skill.icon || 'fas fa-star'} text-3xl skill-icon ml-3"></i>
+                            <div>
+                                <h4 class="text-xl font-semibold text-white">${skill.name || window.getSkillNameArabic(skillKey)}</h4>
+                                <p class="text-sm text-gray-400">مستوى ${skill.level}</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mx-4">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="--progress-width: ${skillPercentage}%;"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center mt-1">${skill.xp}/${skill.xpToNextLevel} XP</p>
+                        </div>
+                        ${skill.type === 'active' ? `<button class="btn-primary px-3 py-1 text-sm rounded-md" onclick="event.stopPropagation(); window.showActiveSkillModal('${skillKey}')">تفعيل</button>` : `<span class="text-xs text-purple-400">مهارة كامنة</span>`}
+                    </div>
+                `;
+                if (skill.type === 'active') {
+                    activeSkillsContainer.innerHTML += skillCardHtml;
+                } else {
+                    passiveSkillsContainer.innerHTML += skillCardHtml;
+                }
+            }
+        };
+
+        window.updateDailyQuestUI = function() {
+            const dailyQuestsContainer = document.getElementById('daily-quests-container');
+            dailyQuestsContainer.innerHTML = ''; 
+
+            dailyQuestsData.forEach((quest, index) => {
+                const now = Date.now();
+                const twentyFourHours = 24 * 60 * 60 * 1000;
+                let questStatus = player.dailyQuestsStatus[index];
+
+                if (!questStatus || now - questStatus.lastReset >= twentyFourHours) {
+                    player.dailyQuestsStatus[index] = { id: quest.id, completed: false, lastReset: now };
+                    questStatus = player.dailyQuestsStatus[index];
+                }
+
+                const questCard = `
+                    <div class="card daily-quest-card p-6 text-center" onclick="window.showQuestAcceptanceModal('daily', ${index})">
+                        <div>
+                            <i class="${quest.icon} text-4xl text-purple-300 mb-3"></i>
+                            <h3 class="text-xl font-bold mb-2 text-white">${quest.name}</h3>
+                            <p class="text-gray-400 text-sm mb-3 h-12 overflow-hidden">${quest.description.split('(تكلفة')[0]}</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-center items-center mb-3">
+                                <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full ml-2">الرتبة: ${quest.rank}</span>
+                                <span class="bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-full">XP ${quest.xpReward}+</span>
+                                <span class="bg-yellow-500 text-white text-xs font-semibold px-2 py-1 rounded-full mr-2">ج ${quest.aetherShardsReward}+</span>
+                            </div>
+                             <p class="text-xs text-blue-300">تكلفة القبول: ${quest.energyCost} طاقة</p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                ${questStatus.completed ? `(مكتملة - تعاد غداً)` : `(تُعاد المهمة تعيينها كل 24 ساعة)`}
+                            </p>
+                        </div>
+                    </div>
+                `;
+                dailyQuestsContainer.innerHTML += questCard;
+            });
+        };
+        
+        window.renderDungeons = function() { 
+            const container = document.getElementById('dungeons-container');
+            container.innerHTML = ''; 
+
+            dungeons.forEach(dungeon => { 
+                let cardClass = "dungeon-card";
+                let timeRemainingHtml = "";
+                let isOpen = true; 
+
+                if (dungeon.type === "زنزانة أسبوعية" || dungeon.type === "زنزانة شهرية") {
+                    cardClass += " timed-dungeon-card"; 
+                    isOpen = dungeon.type === "زنزانة أسبوعية" ? window.isWeeklyDungeonOpen(dungeon) : window.isMonthlyDungeonOpen(dungeon);
+                    if (isOpen) {
+                        const timeLeft = dungeon.type === "زنزانة أسبوعية" ? window.getWeeklyDungeonTimeRemaining(dungeon) : window.getMonthlyDungeonTimeRemaining(dungeon);
+                        timeRemainingHtml = `<div class="dungeon-timer mt-2"><i class="fas fa-clock ml-1"></i>متبقي: ${timeLeft.days}ي ${timeLeft.hours}س ${timeLeft.minutes}د ${timeLeft.seconds}ث</div>`;
+                    } else {
+                         timeRemainingHtml = `<div class="dungeon-timer mt-2 text-red-500"><i class="fas fa-lock ml-1"></i>مغلقة حالياً</div>`;
+                    }
+                }
+
+
+                const dungeonCardHTML = `
+                    <div class="card ${cardClass} p-6 text-center ${!isOpen && (dungeon.type === "زنزانة أسبوعية" || dungeon.type === "زنزانة شهرية") ? 'opacity-60 cursor-not-allowed' : ''}" 
+                         onclick="${isOpen || !(dungeon.type === 'زنزانة أسبوعية' || dungeon.type === 'زنزانة شهرية') ? `window.showQuestAcceptanceModal('dungeon', '${dungeon.id}')` : `window.showSystemMessage('زنزانة مغلقة', 'هذه الزنزانة غير متاحة حالياً.')`}">
+                        <div class="text-purple-400 mb-4">
+                            <i class="${dungeon.icon} text-5xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">${dungeon.name} (${dungeon.type})</h3>
+                        <p class="text-gray-400 mb-2 h-12 overflow-hidden">${(typeof dungeon.description === 'string' ? dungeon.description : "مهام متعددة لإكمالها.").split('(تكلفة')[0]}...</p>
+                         ${timeRemainingHtml}
+                        <div class="flex justify-center items-center my-2">
+                            <span class="bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full ml-2">الرتبة: ${dungeon.rank}</span>
+                            <span class="bg-green-600 text-white text-sm font-semibold px-3 py-1 rounded-full">XP ${dungeon.xpReward}+</span>
+                             ${dungeon.aetherShardsReward ? `<span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full mr-2">ج ${dungeon.aetherShardsReward}+</span>` : ''}
+                        </div>
+                         <p class="text-xs text-blue-300">تكلفة الدخول: ${dungeon.energyCost || 20} طاقة</p>
+                        <button class="btn-secondary px-6 py-2 rounded-full text-lg mt-2">
+                            <i class="fas fa-eye ml-2"></i> عرض التفاصيل
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += dungeonCardHTML;
+            });
+        };
+
+        window.renderInventory = function() {
+            const container = document.getElementById('inventory-container');
+            container.innerHTML = ''; 
+
+            if (player.inventory.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-lg col-span-full">مخزونك فارغ حالياً. أكمل الزنزانات أو قم بالشراء من المتجر للحصول على موارد جديدة!</p>`;
+                return;
+            }
+
+            player.inventory.forEach(item => {
+                const rarityClass = window.getItemRarityClass(item.rarity);
+                const itemCard = `
+                    <div class="card p-6 text-center cursor-pointer hover:bg-gray-700" onclick="window.showItemModal('${item.id}')">
+                        <div class="text-purple-400 mb-4">
+                            <i class="${item.icon} text-5xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">${item.name}</h3>
+                        <p class="text-gray-400 mb-4 h-12 overflow-hidden">${item.description.substring(0, 70)}...</p>
+                        <span class="font-bold ${rarityClass}">${window.getItemRarityArabic(item.rarity)}</span>
+                        <button class="btn-secondary block mx-auto mt-3 px-6 py-2 rounded-full text-lg">
+                            <i class="fas fa-info-circle ml-2"></i> عرض التفاصيل
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += itemCard;
+            });
+        };
+
+        window.renderTitles = function() {
+            const container = document.getElementById('titles-container');
+            container.innerHTML = '';
+
+            if (player.titles.filter(t => t.earned).length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-lg col-span-full">لم تحصل على أي ألقاب بعد. أكمل المهام الصعبة لتحقيق إنجازات جديدة!</p>`;
+                return;
+            }
+
+            player.titles.filter(t => t.earned).forEach(title => {
+                const titleCard = `
+                    <div class="card p-6 text-center cursor-pointer hover:bg-gray-700" onclick="window.showTitleModal('${title.id}')">
+                        <div class="text-purple-400 mb-4">
+                            <i class="fas fa-medal text-5xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">${title.name}</h3>
+                        <p class="text-gray-400 mb-4 h-12 overflow-hidden">${title.description.substring(0, 50)}...</p>
+                         <button class="btn-secondary block mx-auto mt-3 px-6 py-2 rounded-full text-lg">
+                            <i class="fas fa-info-circle ml-2"></i> عرض التفاصيل
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += titleCard;
+            });
+        };
+        
+        window.renderCompanions = function() {
+            const container = document.getElementById('companions-container');
+            container.innerHTML = '';
+
+            if (player.companions.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-lg col-span-full">ليس لديك رفقاء حالياً. ابحث عن مرشدين لمساعدتك في رحلتك!</p>`;
+                return;
+            }
+
+            player.companions.forEach(companion => {
+                const companionCard = `
+                    <div class="card p-6 text-center cursor-pointer hover:bg-gray-700" onclick="window.showCompanionModal('${companion.id}')">
+                        <div class="text-purple-400 mb-4">
+                            <i class="${companion.icon} text-5xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">${companion.name}</h3>
+                        <p class="text-gray-400 mb-4 h-12 overflow-hidden">${companion.description.substring(0, 50)}...</p>
+                        <button class="btn-secondary block mx-auto mt-3 px-6 py-2 rounded-full text-lg">
+                            <i class="fas fa-comments ml-2"></i> تحدث معه
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += companionCard;
+            });
+        };
+
+        window.renderExchange = function() { // Name kept as exchange, but it's a shop
+            const container = document.getElementById('exchange-container');
+            container.innerHTML = '';
+
+            exchangeItems.forEach(item => {
+                const rarityClass = window.getItemRarityClass(item.rarity);
+                const itemCard = `
+                    <div class="card p-6 text-center cursor-pointer hover:bg-gray-700" onclick="window.showExchangeModal('${item.id}')">
+                        <div class="text-purple-400 mb-4">
+                            <i class="${item.icon} text-5xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">${item.name}</h3>
+                        <p class="text-gray-400 mb-4 h-12 overflow-hidden">${item.description.substring(0, 50)}...</p>
+                        <p class="text-lg font-bold text-yellow-400 mb-4">السعر: ${item.cost} ج</p> <span class="font-bold ${rarityClass}">${window.getItemRarityArabic(item.rarity)}</span>
+                        <button class="btn-primary block mx-auto mt-3 px-6 py-2 rounded-full text-lg"> <i class="fas fa-shopping-cart ml-2"></i> شراء
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += itemCard;
+            });
+        };
+
+        window.renderEquipmentDisplay = function() {
+            const displayElement = document.getElementById('equipment-display');
+            displayElement.innerHTML = '';
+            let equippedCount = 0;
+            for (const slot in player.equippedItems) {
+                if (player.equippedItems[slot]) {
+                    const item = player.equippedItems[slot];
+                    const rarityClass = item.rarity ? window.getItemRarityClass(item.rarity) : 'rarity-common';
+                    const span = document.createElement('span');
+                    span.className = `inline-block bg-gray-700 text-white text-xs px-2 py-1 rounded-full ml-1 ${rarityClass}`;
+                    span.textContent = item.name;
+                    displayElement.appendChild(span);
+                    equippedCount++;
+                }
+            }
+            if (equippedCount === 0) {
+                displayElement.textContent = 'لا يوجد';
+            }
+        };
+
+        window.getItemRarityClass = function(rarity) {
+            switch(rarity) {
+                case 'common': return 'rarity-common';
+                case 'rare': return 'rarity-rare';
+                case 'epic': return 'rarity-epic';
+                case 'legendary': return 'rarity-legendary';
+                default: return 'rarity-common';
+            }
+        };
+
+        window.getItemRarityArabic = function(rarity) {
+            switch(rarity) {
+                case 'common': return 'عادي';
+                case 'rare': return 'نادر';
+                case 'epic': return 'ملحمي';
+                case 'legendary': return 'أسطوري';
+                default: return 'عادي';
+            }
+        };
+
+        window.getSkillNameArabic = function(skillKey) {
+            const skill = player.skills[skillKey];
+            if (skill && skill.name) return skill.name; 
+
+            const skillNames = {
+                knowledge: "المعرفة", fitness: "اللياقة البدنية", creativity: "الإبداع", 
+                discipline: "الانضباط", focus: "التركيز", communication: "التواصل", 
+                wisdom: "الحكمة"
+            };
+            return skillNames[skillKey] || skillKey.charAt(0).toUpperCase() + skillKey.slice(1);
+        };
+
+        window.getStatNameArabic = function(statKey) {
+            const statNames = {
+                strength: "القوة", agility: "الرشاقة", intelligence: "الذكاء",
+                stamina: "التحمل", wisdom: "الحكمة"
+            };
+            return statNames[statKey] || statKey;
+        };
+        
+        window.getStatusAilmentArabic = function(ailmentId) {
+            const ailment = statusAilmentData[ailmentId];
+            return ailment ? ailment.name : ailmentId;
+        };
+
+        window.addXP = function(amount) {
+            player.xp += amount;
+            window.showSystemMessage("رسالة من المؤسس", `لقد ربحت ${amount} نقطة خبرة!`);
+            window.checkLevelUp();
+            window.updateUI();
+            window.saveProgress();
+        };
+         window.addAetherShards = function(amount) {
+            player.aetherShards += amount;
+            window.showSystemMessage("رسالة من المؤسس", `لقد ربحت ${amount} جوهر!`);
+            window.updateUI(); 
+            window.saveProgress();
+        };
+
+
+        window.addSkillXP = function(skillKey, amount) {
+            if (player.skills[skillKey]) {
+                player.skills[skillKey].xp += amount;
+                while (player.skills[skillKey].xp >= player.skills[skillKey].xpToNextLevel) {
+                    player.skills[skillKey].xp -= player.skills[skillKey].xpToNextLevel;
+                    player.skills[skillKey].level++;
+                    player.skills[skillKey].xpToNextLevel = Math.floor(player.skills[skillKey].xpToNextLevel * 1.2 + 20); 
+                    window.showSystemMessage("رسالة من المؤسس", `لقد ارتفع مستوى مهارة "${window.getSkillNameArabic(skillKey)}" إلى المستوى ${player.skills[skillKey].level}!`);
+                }
+            } else {
+                console.warn(`Attempted to add XP to non-existent skill: ${skillKey}`);
+            }
+            window.updateUI();
+            window.saveProgress();
+        };
+
+        window.checkLevelUp = function() {
+            while (player.xp >= player.xpToNextLevel) {
+                player.xp -= player.xpToNextLevel;
+                player.level++;
+                player.xpToNextLevel = Math.floor(player.xpToNextLevel * 1.5 + 50); 
+                player.availablePoints += 5; 
+                player.maxHealth += 5; 
+                player.maxStamina += 5; 
+                player.health = player.maxHealth; 
+                player.stamina = player.maxStamina; 
+                player.rank = window.getRank(player.level);
+                window.showSystemMessage("رسالة من المؤسس", `تهانينا! لقد وصلت إلى المستوى ${player.level} (${player.rank})! لديك ${player.availablePoints} نقاط قدرة لتوزيعها.`);
+                window.checkAchievements(); 
+            }
+        };
+
+        window.allocateStat = function(statName) {
+            if (player.availablePoints > 0) {
+                player.stats[statName]++;
+                player.availablePoints--;
+                if (statName === 'stamina') player.maxStamina += 2; 
+                if (statName === 'strength') player.maxHealth += 1; 
+
+                window.showSystemMessage("رسالة من المؤسس", `لقد زدت نقطة في ${window.getStatNameArabic(statName)}. تبقى لديك ${player.availablePoints} نقطة.`);
+                window.updateUI();
+                window.saveProgress();
+            } else {
+                window.showSystemMessage("رسالة من المؤسس", "ليس لديك نقاط قدرة متاحة لتوزيعها.");
+            }
+        };
+        
+        window.restoreHealth = function(amount) {
+            player.health = Math.min(player.maxHealth, player.health + amount);
+            window.updateUI();
+            // saveProgress will be called by the function that triggered this (e.g. useItem)
+        };
+
+        window.restoreStamina = function(amount) {
+            player.stamina = Math.min(player.maxStamina, player.stamina + amount);
+            window.updateUI();
+            // saveProgress will be called by the function that triggered this
+        };
+        
+        window.applyStatusAilment = function(ailmentId) {
+            const ailment = statusAilmentData[ailmentId];
+            if (ailment && !player.statusAilments.includes(ailmentId)) {
+                player.statusAilments.push(ailmentId);
+                if (ailment.applyEffects) { // Changed from 'effect' to 'applyEffects'
+                    window.executeEffects(ailment.applyEffects);
+                }
+                window.showSystemMessage("رسالة من المؤسس", `لقد أصبت بـ "${ailment.name}"!`);
+                window.updateUI();
+                window.saveProgress();
+            }
+        };
+
+        window.removeAilment = function(ailmentId) {
+            const ailment = statusAilmentData[ailmentId];
+            if (ailment && player.statusAilments.includes(ailmentId)) {
+                player.statusAilments = player.statusAilments.filter(id => id !== ailmentId);
+                // If ailment had ongoing statDebuffs, they should be reversed here if not handled by items/skills
+                // For simplicity, current debuffs are instant and removed when ailment is.
+                window.showSystemMessage("رسالة من المؤسس", `لقد تعافيت من "${ailment.name}"!`);
+                window.updateUI();
+                window.saveProgress();
+            }
+        };
+
+        window.checkStatusAilmentsEffect = function() {
+        };
+
+        window.acceptQuest = function(questType, questIdentifier) {
+            let questData;
+            let energyCost = 10; 
+
+            if (questType === 'daily') {
+                questData = dailyQuestsData[questIdentifier];
+                energyCost = questData.energyCost || 10;
+            } else if (questType === 'dungeon') {
+                questData = dungeons.find(d => d.id === questIdentifier);
+                energyCost = questData.energyCost || 20; 
+            } else if (questType === 'randomGate') {
+                questData = randomGateData; 
+                energyCost = questData.energyCost || 20;
+            } else if (questType === 'llm') {
+                questData = dungeons.find(d => d.id === questIdentifier && d.type === "مهمة مخصصة"); 
+                energyCost = questData.energyCost || 10;
+            }
+
+
+            if (!questData) {
+                window.showSystemMessage("خطأ", "لم يتم العثور على المهمة.");
+                window.hideInfoModal(); 
+                return;
+            }
+
+            if (player.stamina < energyCost) {
+                window.showSystemMessage("طاقة غير كافية", `تحتاج إلى ${energyCost} طاقة لقبول هذه المهمة. طاقتك الحالية: ${player.stamina}.`);
+                window.hideInfoModal();
+                return;
+            }
+
+            player.stamina -= energyCost;
+            window.showSystemMessage("رسالة من المؤسس", `تم قبول مهمة "${questData.name}". تم استهلاك ${energyCost} طاقة.`);
+            window.addQuestToLog(questData, 'active');
+            
+            window.hideInfoModal(); 
+
+            // Show the timed quest modal
+            window.showTimedQuestModal(questData);
+            
+            window.updateUI();
+            window.saveProgress();
+        };
+
+        window.declineQuest = function(questName) {
+            player.health = Math.max(0, player.health - 5);
+            player.stamina = Math.max(0, player.stamina - 5);
+            window.showSystemMessage("رسالة من المؤسس", `لقد رفضت مهمة "${questName}". تم خصم 5 صحة و 5 طاقة.`);
+            window.hideInfoModal();
+            window.updateUI();
+            window.saveProgress();
+        };
+
+
+        window.completeDailyQuest = function(questIndex) { 
+            const questData = dailyQuestsData[questIndex];
+            let questStatus = player.dailyQuestsStatus[questIndex];
+
+            if (!questData || !questStatus) {
+                window.showSystemMessage("رسالة من المؤسس", "خطأ: المهمة اليومية غير موجودة.");
+                return;
+            }
+            if (questStatus.completed) {
+                window.showSystemMessage("رسالة من المؤسس", `لقد أكملت مهمة "${questData.name}" بالفعل لهذا اليوم. عد غداً!`);
+                return;
+            }
+            
+            window.addXP(questData.xpReward);
+            if(questData.aetherShardsReward) window.addAetherShards(questData.aetherShardsReward);
+            window.addSkillXP(questData.skillReward.skill, questData.skillReward.amount);
+            
+            player.dailyQuestsStatus[questIndex].completed = true;
+            
+            window.showSystemMessage("رسالة من المؤسس", `لقد أكملت المهمة اليومية "${questData.name}" بنجاح!`);
+            const loggedQuest = player.questLog.active.find(q => q.id === questData.id && q.type === "يومية");
+            if(loggedQuest) window.addQuestToLog(loggedQuest, 'completed'); 
+            else window.addQuestToLog({...questData, type: "يومية"}, 'completed');
+
+
+            player.stamina = Math.max(0, player.stamina - 2); 
+            if (player.stamina <= 15 && Math.random() < 0.2) window.applyStatusAilment('fatigue'); 
+
+            window.updateUI();
+            window.saveProgress();
+            window.hideTimedQuestModal(); 
+        };
+
+        window.completeDungeon = function(dungeonId) {
+            const dungeon = dungeons.find(d => d.id === dungeonId) || 
+                            (randomGateData && randomGateData.id === dungeonId ? randomGateData : null) ||
+                            player.questLog.active.find(q => q.id === dungeonId); 
+
+            if (dungeon) {
+                if ((dungeon.type === "زنزانة أسبوعية" || dungeon.type === "زنزانة شهرية" || (dungeon.tasks && dungeon.tasks.length > 0)) && !window.areAllDungeonTasksCompleted(dungeonId)) {
+                    window.showSystemMessage("رسالة من المؤسس", `يجب إكمال جميع المهام الفرعية لـ "${dungeon.name}" أولاً!`);
+                    return;
+                }
+                
+                window.addXP(dungeon.xpReward);
+                if(dungeon.aetherShardsReward) window.addAetherShards(dungeon.aetherShardsReward);
+                if (dungeon.skillReward && player.skills[dungeon.skillReward.skill]) {
+                     window.addSkillXP(dungeon.skillReward.skill, dungeon.skillReward.amount);
+                } else if (dungeon.skillReward) {
+                    console.warn(`Skill ${dungeon.skillReward.skill} not found for dungeon ${dungeon.name}`);
+                }
+
+                window.showSystemMessage("رسالة من المؤسس", `لقد أكملت "${dungeon.name}" بنجاح!`);
+                window.addQuestToLog(dungeon, 'completed'); 
+                delete player.dungeonTasksCompletion[dungeonId]; 
+
+                player.health = Math.max(0, player.health - Math.floor(player.maxHealth * 0.05)); 
+                player.stamina = Math.max(0, player.stamina - Math.floor(player.maxStamina * 0.10)); 
+                
+                if (player.health <= player.maxHealth * 0.2 && Math.random() < 0.5) window.applyStatusAilment('fatigue');
+                if (player.stamina <= player.maxStamina * 0.2 && Math.random() < 0.5) window.applyStatusAilment('procrastination');
+
+                window.checkAchievements(); 
+                window.updateUI();
+                window.saveProgress();
+                window.hideTimedQuestModal(); 
+            } else {
+                window.showSystemMessage("رسالة من المؤسس", "لم يتم العثور على الزنزانة أو المهمة.");
+            }
+        };
+        
+        window.useItem = function(itemId) {
+            const itemIndex = player.inventory.findIndex(i => i.id === itemId);
+            if (itemIndex === -1) {
+                window.showSystemMessage("رسالة من المؤسس", "العنصر غير موجود في المخزون.");
+                return;
+            }
+            const item = player.inventory[itemIndex];
+
+            if (item && item.effects) { // Changed from useEffect
+                window.executeEffects(item.effects);
+                window.hideInfoModal();
+                window.updateUI(); // updateUI calls saveProgress
+                window.saveProgress(); // Explicit save after effects
+            } else if (item && item.equipmentSlot) {
+                window.showEquipmentModalForItem(item.id, item.equipmentSlot); 
+            } else if (item) {
+                window.showSystemMessage("رسالة من المؤسس", "لا يمتلك هذا العنصر تأثيراً مباشراً أو ليس قطعة معدات.");
+            }
+        };
+
+        window.removeItem = function(itemId) {
+            player.inventory = player.inventory.filter(item => item.id !== itemId);
+            // No separate updateUI/saveProgress needed here if called from an effect that will do it
+        };
+        
+        window.equipItem = function(itemId, slot) {
+            const itemIndex = player.inventory.findIndex(i => i.id === itemId);
+            if (itemIndex === -1) {
+                window.showSystemMessage("رسالة من المؤسس", "العنصر غير موجود في المخزون لتجهيزه.");
+                return;
+            }
+            const item = player.inventory[itemIndex];
+
+            if (!item || !item.equipmentSlot || item.equipmentSlot !== slot) {
+                window.showSystemMessage("رسالة من المؤسس", `هذا العنصر (${item.name}) لا يمكن تجهيزه في مكان (${slot}).`);
+                return;
+            }
+            
+            if (player.equippedItems[slot]) {
+                const currentlyEquipped = player.equippedItems[slot];
+                player.inventory.push(currentlyEquipped);
+                if (currentlyEquipped.statBonus) {
+                    for (const stat in currentlyEquipped.statBonus) {
+                        if (player.stats.hasOwnProperty(stat)) {
+                             player.stats[stat] -= currentlyEquipped.statBonus[stat];
+                        }
+                    }
+                }
+            }
+            
+            player.equippedItems[slot] = item;
+            player.inventory.splice(itemIndex, 1); 
+            
+            if (item.statBonus) {
+                for (const stat in item.statBonus) {
+                     if (player.stats.hasOwnProperty(stat)) {
+                        player.stats[stat] += item.statBonus[stat];
+                    } else if (player.skills.hasOwnProperty(stat)) { 
+                         window.addSkillXP(stat, item.statBonus[stat] * 10); 
+                    }
+                }
+            }
+            window.showSystemMessage("رسالة من المؤسس", `لقد قمت بتجهيز ${item.name}!`);
+            window.hideEquipmentModal();
+            window.updateUI();
+            window.saveProgress();
+        };
+
+        window.unequipItem = function(slot) {
+            const equippedItem = player.equippedItems[slot];
+            if (equippedItem) {
+                player.inventory.push(equippedItem); 
+                player.equippedItems[slot] = null; 
+                
+                if (equippedItem.statBonus) {
+                    for (const stat in equippedItem.statBonus) {
+                         if (player.stats.hasOwnProperty(stat)) {
+                            player.stats[stat] -= equippedItem.statBonus[stat];
+                        } else if (player.skills.hasOwnProperty(stat)) {
+                             window.addSkillXP(stat, -equippedItem.statBonus[stat] * 10); 
+                        }
+                    }
+                }
+                window.showSystemMessage("رسالة من المؤسس", `لقد قمت بخلع ${equippedItem.name}.`);
+                window.showEquipmentModal(); 
+                window.updateUI();
+                window.saveProgress();
+            } else {
+                window.showSystemMessage("رسالة من المؤسس", "لا يوجد عنصر مجهز في هذا المكان.");
+            }
+        };
+
+        window.acquireExchangeItem = function(itemId) {
+            const itemToAcquireTemplate = exchangeItems.find(item => item.id === itemId);
+            if (!itemToAcquireTemplate) {
+                window.showSystemMessage("رسالة من المؤسس", "العنصر غير متوفر للشراء.");
+                return;
+            }
+
+            const costValue = itemToAcquireTemplate.cost; 
+            if (player.aetherShards >= costValue) {
+                player.aetherShards -= costValue;
+
+                const newItem = { ...itemToAcquireTemplate };
+                delete newItem.cost; 
+                delete newItem.type; 
+                
+                if (itemToAcquireTemplate.type === "item") {
+                    player.inventory.push(newItem);
+                } else if (itemToAcquireTemplate.type === "companion") {
+                    if (itemToAcquireTemplate.companionData && !player.companions.some(c => c.id === itemToAcquireTemplate.companionData.id)) {
+                         player.companions.push({ ...itemToAcquireTemplate.companionData });
+                    } else {
+                        player.aetherShards += costValue; 
+                        window.showSystemMessage("رسالة من المؤسس", "لا يمكن الحصول على هذا الرفيق حالياً أو ممتلك بالفعل.");
+                        return;
+                    }
+                }
+
+                window.showSystemMessage("رسالة من المؤسس", `لقد اشتريت ${itemToAcquireTemplate.name} بنجاح!`);
+                window.hideInfoModal();
+                window.updateUI();
+                window.saveProgress();
+            } else {
+                window.showSystemMessage("رسالة من المؤسس", `ليس لديك ${costValue} جوهر كافية للشراء.`);
+            }
+        };
+
+        window.checkAchievements = function() {
+            player.titles.forEach(title => {
+                if (!title.earned && title.condition && title.condition()) {
+                    title.earned = true;
+                    window.showSystemMessage("إنجاز جديد!", `لقد حصلت على لقب '${title.name}'!`);
+                }
+            });
+            
+            if (player.job && player.job.unlocks && player.job.unlocks.title) {
+                const jobTitleData = player.job.unlocks.title;
+                const existingTitle = player.titles.find(t => t.id === jobTitleData.id);
+                if (existingTitle && !existingTitle.earned) {
+                    existingTitle.earned = true;
+                    window.showSystemMessage("إنجاز جديد!", `لقد حصلت على لقب '${existingTitle.name}'!`);
+                } else if (!existingTitle) {
+                     player.titles.push({...jobTitleData, earned: true});
+                     window.showSystemMessage("إنجاز جديد!", `لقد حصلت على لقب '${jobTitleData.name}'!`);
+                }
+            }
+            
+            window.updateUI(); 
+        };
+
+        window.addQuestToLog = function(questData, status) {
+            const questId = questData.id || `quest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`; 
+            const newQuestEntry = { ...questData, id: questId, status: 'active', startedAt: Date.now() };
+
+            player.questLog.active = player.questLog.active.filter(q => q.id !== questId);
+            player.questLog.completed = player.questLog.completed.filter(q => q.id !== questId);
+            player.questLog.failed = player.questLog.failed.filter(q => q.id !== questId);
+
+            if (status === 'active') {
+                player.questLog.active.unshift(newQuestEntry); 
+            } else if (status === 'completed') {
+                newQuestEntry.status = 'completed';
+                newQuestEntry.completedAt = Date.now();
+                player.questLog.completed.unshift(newQuestEntry);
+            } else if (status === 'failed') {
+                newQuestEntry.status = 'failed';
+                newQuestEntry.failedAt = Date.now();
+                player.questLog.failed.unshift(newQuestEntry);
+            }
+            window.checkAchievements(); 
+            window.saveProgress();
+        };
+        
+        window.showJobChangeModal = function() {
+            if (player.jobChanged) {
+                window.showSystemMessage("رسالة من المؤسس", `لقد اخترت مهنتك بالفعل: ${player.job.name}. لا يمكنك تغيير المهنة بعد الآن.`);
+                return;
+            }
+            const container = document.getElementById('job-options-container');
+            container.innerHTML = '';
+            jobs.forEach(job => {
+                const jobCard = `
+                    <div class="card p-6 text-center cursor-pointer hover:bg-gray-700 transition-all" onclick="window.selectJob('${job.id}')">
+                        <h4 class="text-2xl font-bold text-white mb-2">${job.name}</h4>
+                        <p class="text-gray-400 text-sm">${job.description}</p>
+                        <p class="text-xs text-purple-300 mt-2">يفتح: ${job.unlocks.title.name}, ${job.unlocks.companion.name}</p>
+                        <button class="btn-primary px-4 py-2 text-sm rounded-md mt-4">اختر هذه المهنة</button>
+                    </div>
+                `;
+                container.innerHTML += jobCard;
+            });
+            document.getElementById('job-change-modal').classList.add('active');
+        };
+
+        window.hideJobChangeModal = function() {
+            document.getElementById('job-change-modal').classList.remove('active');
+        };
+
+        window.selectJob = function(jobId) {
+            const selectedJob = jobs.find(job => job.id === jobId);
+            if (selectedJob && !player.jobChanged) {
+                player.job = selectedJob;
+                player.jobChanged = true; 
+                
+                if (selectedJob.unlocks && selectedJob.unlocks.companion && !player.companions.some(c => c.id === selectedJob.unlocks.companion.id)) {
+                    player.companions.push(selectedJob.unlocks.companion);
+                }
+                window.showSystemMessage("رسالة من المؤسس", `تهانينا! لقد أصبحت "${selectedJob.name}"! تم فتح محتوى جديد.`);
+                window.hideJobChangeModal();
+                window.checkAchievements(); 
+                window.updateUI(); 
+                window.saveProgress();
+            } else if (player.jobChanged) {
+                window.showSystemMessage("رسالة من المؤسس", "لقد اخترت مهنتك بالفعل. لا يمكنك تغيير المهنة.");
+            }
+        };
+
+        window.showQuestLogModal = function() {
+            const activeList = document.getElementById('active-quests-list');
+            const completedList = document.getElementById('completed-quests-list');
+            const failedList = document.getElementById('failed-quests-list');
+
+            activeList.innerHTML = player.questLog.active.length === 0 ? '<p class="text-gray-500 p-2">لا توجد مهام نشطة حالياً.</p>' : 
+                player.questLog.active.map(q => `<div class="quest-log-item"><h5 class="font-bold text-white">${q.name} (${q.type || 'غير محدد'})</h5><p class="text-sm text-gray-400">${(typeof q.description === 'string' ? q.description : q.tasks.map(t=>t.text).join(', ')).substring(0, 80)}...</p><p class="text-xs text-gray-500">بدأت في: ${new Date(q.startedAt).toLocaleDateString('ar-EG')}</p></div>`).join('');
+
+            completedList.innerHTML = player.questLog.completed.length === 0 ? '<p class="text-gray-500 p-2">لا توجد مهام مكتملة بعد.</p>' :
+                player.questLog.completed.map(q => `<div class="quest-log-item completed"><h5 class="font-bold text-green-400">${q.name} (${q.type || 'غير محدد'})</h5><p class="text-sm text-gray-400">أكملت في: ${new Date(q.completedAt).toLocaleDateString('ar-EG')}</p></div>`).join('');
+            
+            failedList.innerHTML = player.questLog.failed.length === 0 ? '<p class="text-gray-500 p-2">لا توجد مهام فاشلة.</p>' :
+                player.questLog.failed.map(q => `<div class="quest-log-item failed"><h5 class="font-bold text-red-400">${q.name} (${q.type || 'غير محدد'})</h5><p class="text-sm text-gray-400">فشلت في: ${new Date(q.failedAt).toLocaleDateString('ar-EG')}</p></div>`).join('');
+
+            document.getElementById('quest-log-modal').classList.add('active');
+        };
+
+        window.hideQuestLogModal = function() {
+            document.getElementById('quest-log-modal').classList.remove('active');
+        };
+        
+        window.showEquipmentModal = function() {
+            document.getElementById('equip-head-name').textContent = player.equippedItems.head ? player.equippedItems.head.name : 'لا شيء';
+            document.getElementById('equip-body-name').textContent = player.equippedItems.body ? player.equippedItems.body.name : 'لا شيء';
+            document.getElementById('equip-weapon-name').textContent = player.equippedItems.weapon ? player.equippedItems.weapon.name : 'لا شيء';
+            document.getElementById('equip-accessory-name').textContent = player.equippedItems.accessory ? player.equippedItems.accessory.name : 'لا شيء';
+
+            const availableEquipmentList = document.getElementById('available-equipment-list');
+            availableEquipmentList.innerHTML = '';
+            const equipableItems = player.inventory.filter(item => item.equipmentSlot);
+
+            if (equipableItems.length === 0) {
+                availableEquipmentList.innerHTML = '<p class="text-gray-500 col-span-full text-center p-3">لا توجد معدات متاحة في المخزون للتجهيز.</p>';
+            } else {
+                 equipableItems.forEach(item => {
+                    const rarityClass = window.getItemRarityClass(item.rarity);
+                    const itemCard = `
+                        <div class="card p-3 text-center cursor-pointer hover:bg-gray-700 transition-all" onclick="window.equipItem('${item.id}', '${item.equipmentSlot}')">
+                            <i class="${item.icon || 'fas fa-question-circle'} text-3xl text-purple-400"></i>
+                            <h4 class="text-md font-semibold text-white truncate" title="${item.name}">${item.name}</h4>
+                            <p class="text-xs ${rarityClass}">${window.getItemRarityArabic(item.rarity)}</p>
+                            <p class="text-xs text-gray-400">(${item.equipmentSlot})</p>
+                            <button class="btn-primary px-2 py-1 text-xs rounded-md mt-1">تجهيز</button>
+                        </div>
+                    `;
+                    availableEquipmentList.innerHTML += itemCard;
+                });
+            }
+            document.getElementById('equipment-modal').classList.add('active');
+        };
+        
+        window.showEquipmentModalForItem = function(itemId, slot) {
+            window.hideInfoModal(); 
+            window.showEquipmentModal(); 
+            window.showSystemMessage("رسالة من المؤسس", "اختر المكان المناسب لتجهيز العنصر من نافذة إدارة المعدات.");
+        };
+
+        window.hideEquipmentModal = function() {
+            document.getElementById('equipment-modal').classList.remove('active');
+        };
+
+        // --- Random Gate Logic ---
+        let randomGateData = null; 
+
+        window.simulateRandomGate = function() {
+            const possibleDungeons = dungeons.filter(d => d.rank !== 'أسطوري' && d.rank !== 'سيد' && d.type !== "زنزانة أسبوعية" && d.type !== "زنزانة شهرية"); 
+            if (possibleDungeons.length === 0) {
+                window.showSystemMessage("رسالة من المؤسس", "لا توجد بوابات عشوائية مناسبة لمستواك حالياً.");
+                return;
+            }
+            const randomDungeonTemplate = possibleDungeons[Math.floor(Math.random() * possibleDungeons.length)];
+            
+            randomGateData = { ...randomDungeonTemplate, id: `random_gate_${Date.now()}`, type: "بوابة عشوائية", energyCost: 20, estimatedDurationMinutes: randomDungeonTemplate.estimatedDurationMinutes || 60 }; 
+
+            document.getElementById('random-gate-difficulty').textContent = `الرتبة: ${randomGateData.rank}`;
+            document.getElementById('random-gate-reward-preview').textContent = `المكافأة: +${randomGateData.xpReward} XP, ${randomGateData.aetherShardsReward ? `+${randomGateData.aetherShardsReward} ج, ` : ''}+${randomGateData.skillReward.amount} ${window.getSkillNameArabic(randomGateData.skillReward.skill)}`;
+            document.getElementById('random-gate-cost').textContent = randomGateData.energyCost;
+            
+            document.getElementById('random-gate-modal').classList.add('active'); 
+        };
+
+        window.acceptRandomGate = function() {
+            if (randomGateData) {
+                window.acceptQuest('randomGate', randomGateData.id); 
+                window.hideRandomGateModal(); 
+            }
+        };
+
+        window.declineRandomGate = function() {
+            if (randomGateData) {
+                window.declineQuest(randomGateData.name);
+                randomGateData = null; 
+                window.hideRandomGateModal();
+            }
+        };
+
+        window.hideRandomGateModal = function() {
+            document.getElementById('random-gate-modal').classList.remove('active'); 
+        };
+        
+        window.showQuestAcceptanceModal = function(type, identifier) {
+            let questData;
+            let questTitle = "تفاصيل المهمة";
+            let energyCost = 0;
+            let estimatedTime = "غير محدد";
+
+            if (type === 'daily') {
+                questData = dailyQuestsData[identifier];
+                questTitle = questData.name + " (يومية)";
+                energyCost = questData.energyCost || 10;
+                estimatedTime = questData.estimatedDurationMinutes ? `${questData.estimatedDurationMinutes} دقيقة` : "غير محدد";
+            } else if (type === 'dungeon' || type === 'llm') { 
+                questData = dungeons.find(d => d.id === identifier);
+                if (!questData) return;
+                questTitle = questData.name + ` (${questData.type})`;
+                energyCost = questData.energyCost || (questData.type === "زنزانة أسبوعية" || questData.type === "زنزانة شهرية" ? 20 : 10);
+                estimatedTime = questData.estimatedDurationMinutes ? `${Math.ceil(questData.estimatedDurationMinutes/60)} ساعة تقريباً` : ( (questData.type === "زنزانة أسبوعية" || questData.type === "زنزانة شهرية") ? "مستمرة" : "غير محدد");
+                 if (questData.type === "مهمة مخصصة" && questData.estimatedDurationMinutes) { // More precise for LLM
+                    estimatedTime = `${questData.estimatedDurationMinutes} دقيقة`;
+                }
+            }
+
+
+            if (!questData) return;
+
+            const modalHtml = `
+                <h3 class="text-center"><i class="${questData.icon} ml-3"></i> ${questTitle}</h3>
+                <p class="text-lg mt-4 text-gray-300">${(typeof questData.description === 'string' ? questData.description : questData.tasks.map(t=>t.text).join('<br>- ')).split('(تكلفة')[0]}</p>
+                <div class="mt-4">
+                    <p class="text-xl"><span class="font-bold text-purple-300">الرتبة:</span> ${questData.rank}</p>
+                    <p class="text-xl"><span class="font-bold text-purple-300">المكافآت:</span> +${questData.xpReward} XP, ${questData.aetherShardsReward ? `+${questData.aetherShardsReward} ج, ` : ''}${questData.skillReward ? `+${questData.skillReward.amount} ${window.getSkillNameArabic(questData.skillReward.skill)}` : ''}</p>
+                    <p class="text-md text-blue-300 mt-2">تكلفة القبول: ${energyCost} طاقة</p>
+                    <p class="text-md text-gray-400 mt-1">الوقت التقديري: ${estimatedTime}</p>
+                </div>
+                <div class="flex justify-center gap-4 mt-6">
+                    <button class="btn-primary px-8 py-3 rounded-full text-lg" onclick="window.acceptQuest('${type}', '${type === 'daily' ? identifier : questData.id}')">
+                        <i class="fas fa-check-circle ml-2"></i> قبول المهمة
+                    </button>
+                    <button class="btn-danger px-8 py-3 rounded-full text-lg" onclick="window.declineQuest('${questData.name}')">
+                        <i class="fas fa-times-circle ml-2"></i> رفض المهمة
+                    </button>
+                </div>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+
+
+        window.showDailyQuestModal = function(questIndex, accepted = false) { 
+            const questData = dailyQuestsData[questIndex];
+            let questStatus = player.dailyQuestsStatus[questIndex];
+            if (!questData || !questStatus) return;
+
+            if (!accepted) {
+                window.showQuestAcceptanceModal('daily', questIndex);
+                return;
+            }
+        };
+
+        window.showDungeonModal = function(dungeonId, accepted = false) { 
+            const dungeon = dungeons.find(d => d.id === dungeonId) || player.questLog.active.find(q => q.id === dungeonId); 
+            if (!dungeon) return;
+
+            if (!accepted) { 
+                window.showQuestAcceptanceModal('dungeon', dungeonId);
+                return;
+            }
+        };
+        
+        window.showTimedQuestModal = function(questData) {
+            const modalContent = document.getElementById('timed-quest-modal-content');
+            if (!modalContent) return;
+
+            if (player.activeTimedQuest && player.activeTimedQuest.timerIntervalId) {
+                clearInterval(player.activeTimedQuest.timerIntervalId); 
+            }
+
+            const durationMinutes = questData.estimatedDurationMinutes || 30; 
+            const endTime = Date.now() + durationMinutes * 60 * 1000;
+
+            player.activeTimedQuest = {
+                id: questData.id,
+                type: questData.type,
+                name: questData.name,
+                endTime: endTime,
+                originalQuestData: questData, 
+                timerIntervalId: null
+            };
+
+            let tasksHtml = '';
+            if (questData.tasks && questData.tasks.length > 0) {
+                 tasksHtml = `<h4 class="text-lg font-semibold text-purple-300 mt-4 mb-2">المهام الفرعية:</h4><div id="dungeon-tasks-container-${questData.id}" class="space-y-2">`;
+                 (player.dungeonTasksCompletion[questData.id] || questData.tasks.map(() => false)).forEach((completed, index) => {
+                    tasksHtml += `
+                        <div class="dungeon-task-item ${completed ? 'completed' : ''}">
+                            <input type="checkbox" id="task-${questData.id}-${index}" ${completed ? 'checked' : ''} onchange="window.toggleDungeonTask('${questData.id}', ${index})">
+                            <label for="task-${questData.id}-${index}">${questData.tasks[index].text}</label>
+                        </div>
+                    `;
+                });
+                tasksHtml += '</div>';
+            }
+
+            modalContent.innerHTML = `
+                <h3 class="text-center"><i class="${questData.icon || 'fas fa-hourglass-half'} ml-3"></i> ${questData.name} جارية...</h3>
+                <div id="timed-quest-timer" class="dungeon-timer text-center my-4 text-2xl">00:00:00</div>
+                <p class="text-md text-gray-400 my-2">الوقت التقديري الأصلي: ${durationMinutes} دقيقة</p>
+                <p class="text-lg mt-2 text-gray-300">${typeof questData.description === 'string' ? questData.description.split('(تكلفة')[0] : "أكمل المهام الفرعية أدناه:"}</p>
+                ${tasksHtml}
+                <div class="flex justify-around gap-4 mt-8">
+                    <button id="complete-timed-quest-btn-${questData.id}" class="btn-primary px-6 py-3 rounded-full text-lg flex-1">
+                        <i class="fas fa-check-double ml-2"></i> إنهاء المهمة
+                    </button>
+                    <button class="btn-danger px-6 py-3 rounded-full text-lg flex-1" onclick="window.failActiveQuest()">
+                        <i class="fas fa-flag ml-2"></i> إعلان الفشل
+                    </button>
+                </div>
+            `;
+            
+            if (questData.tasks && questData.tasks.length > 0) {
+                 window.updateDungeonCompleteButtonState(questData.id, `complete-timed-quest-btn-${questData.id}`);
+            }
+
+
+            document.getElementById(`complete-timed-quest-btn-${questData.id}`).onclick = () => {
+                window.showConfirmationModal(
+                    "هل أنت متأكد أنك أكملت هذه المهمة بالفعل؟",
+                    () => {
+                        if (questData.type === "يومية") {
+                            const dailyQuestIndex = dailyQuestsData.findIndex(dq => dq.id === questData.id);
+                            if (dailyQuestIndex !== -1) window.completeDailyQuest(dailyQuestIndex);
+                        } else {
+                            window.completeDungeon(questData.id);
+                        }
+                    },
+                    () => {} 
+                );
+            };
+
+
+            const timerDisplay = document.getElementById('timed-quest-timer');
+            
+            const updateTimerDisplay = () => {
+                if (!player.activeTimedQuest || player.activeTimedQuest.id !== questData.id) { // Check if this quest is still the active one
+                    clearInterval(player.activeTimedQuest?.timerIntervalId); // Clear if another quest became active
+                    return;
+                }
+                const timeLeftMs = player.activeTimedQuest.endTime - Date.now();
+                if (timeLeftMs <= 0) {
+                    timerDisplay.textContent = "انتهى الوقت!";
+                    clearInterval(player.activeTimedQuest.timerIntervalId);
+                    window.failActiveQuest(); 
+                } else {
+                    const t = formatTimeLeft(timeLeftMs);
+                    timerDisplay.textContent = `${String(t.hours).padStart(2, '0')}:${String(t.minutes).padStart(2, '0')}:${String(t.seconds).padStart(2, '0')}`;
+                }
+            };
+
+            player.activeTimedQuest.timerIntervalId = setInterval(updateTimerDisplay, 1000);
+            updateTimerDisplay(); 
+
+            document.getElementById('timed-quest-modal').classList.add('active');
+        };
+        
+        window.failActiveQuest = function() { 
+            if (!player.activeTimedQuest || !player.activeTimedQuest.originalQuestData) {
+                console.warn("No active timed quest to fail or originalQuestData missing.");
+                window.hideTimedQuestModal();
+                return;
+            }
+
+            const questData = player.activeTimedQuest.originalQuestData;
+            player.health = Math.max(0, player.health - 5);
+            player.stamina = Math.max(0, player.stamina - 5);
+            window.showSystemMessage("فشل المهمة", `فشلت في إكمال مهمة "${questData.name}". تم خصم 5 صحة و 5 طاقة.`);
+            
+            const loggedQuest = player.questLog.active.find(q => q.id === questData.id);
+            if(loggedQuest) window.addQuestToLog(loggedQuest, 'failed');
+            else window.addQuestToLog(questData, 'failed'); 
+
+            delete player.dungeonTasksCompletion[questData.id];
+            window.hideTimedQuestModal();
+            window.updateUI();
+            window.saveProgress();
+        };
+
+
+        window.showItemModal = function(itemId) {
+            const item = player.inventory.find(i => i.id === itemId);
+            if (!item) return;
+            const rarityClass = window.getItemRarityClass(item.rarity);
+            let actionsHtml = '';
+            if (item.effects) { // Changed from useEffect
+                actionsHtml += `<button class="btn-primary px-6 py-2 rounded-full text-lg mt-4" onclick="window.useItem('${item.id}')"><i class="fas fa-hand-sparkles ml-2"></i> استخدام</button>`;
+            }
+            if (item.equipmentSlot) {
+                 actionsHtml += `<button class="btn-secondary px-6 py-2 rounded-full text-lg mt-4 mr-3" onclick="window.showEquipmentModalForItem('${item.id}', '${item.equipmentSlot}')"><i class="fas fa-shield-alt ml-2"></i> تجهيز...</button>`;
+            }
+
+            const modalHtml = `
+                <h3 class="text-center"><i class="${item.icon} ml-3"></i> ${item.name}</h3>
+                <p class="text-center font-bold ${rarityClass} text-lg">${window.getItemRarityArabic(item.rarity)}</p>
+                <p class="text-lg mt-4 text-gray-300">${item.description}</p>
+                ${item.statBonus ? `<p class="text-md mt-2 text-green-400">مكافأة: ${Object.entries(item.statBonus).map(([key, value]) => `${window.getStatNameArabic(key)} +${value}`).join(', ')}</p>` : ''}
+                <div class="mt-6 text-center">
+                    ${actionsHtml || '<p class="text-gray-500">لا توجد إجراءات متاحة لهذا العنصر.</p>'}
+                </div>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+        
+        window.showTitleModal = function(titleId) {
+            const title = player.titles.find(t => t.id === titleId);
+            if (!title) return;
+            const modalHtml = `
+                <h3 class="text-center"><i class="fas fa-medal ml-3"></i> ${title.name}</h3>
+                <p class="text-lg mt-4 text-gray-300">${title.description}</p>
+                <p class="text-sm text-purple-300 mt-4">تم الحصول عليه: ${title.earned ? 'نعم' : 'لا'}</p>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+
+        window.showCompanionModal = function(companionId) {
+            const companion = player.companions.find(c => c.id === companionId);
+            if (!companion) return;
+            const modalHtml = `
+                <h3 class="text-center"><i class="${companion.icon} ml-3"></i> ${companion.name}</h3>
+                <p class="text-lg mt-4 text-gray-300">${companion.description}</p>
+                <p class="text-md italic mt-4 text-purple-200">"${companion.persona}"</p>
+                <div class="mt-6">
+                    <label for="mentor-question-input" class="block text-gray-300 font-medium mb-2">سؤالك للمرشد:</label>
+                    <textarea id="mentor-question-input" rows="3" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white" placeholder="اكتب سؤالك هنا..."></textarea>
+                    <button class="btn-primary w-full px-4 py-2 mt-2 rounded-md" onclick="window.getMentorAdviceFromLLM('${companion.id}')">
+                        <i class="fas fa-paper-plane ml-2"></i> اطلب النصيحة <span id="mentor-advice-loading" class="loading-spinner hidden"></span>
+                    </button>
+                </div>
+                <div id="mentor-advice-output" class="mt-4 p-4 bg-gray-800 rounded-lg hidden min-h-[50px]">
+                    <p id="mentor-advice-text" class="text-gray-300"></p>
+                </div>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+        
+        window.showExchangeModal = function(exchangeItemId) {
+            const item = exchangeItems.find(ex => ex.id === exchangeItemId);
+            if (!item) return;
+            const rarityClass = window.getItemRarityClass(item.rarity);
+            const modalHtml = `
+                <h3 class="text-center"><i class="${item.icon} ml-3"></i> ${item.name}</h3>
+                <p class="text-center font-bold ${rarityClass} text-lg">${window.getItemRarityArabic(item.rarity)}</p>
+                <p class="text-lg mt-4 text-gray-300">${item.description}</p>
+                <p class="text-2xl font-bold text-yellow-400 mt-4 text-center">السعر: ${item.cost} ج</p>
+                <button class="btn-primary w-full px-8 py-3 rounded-full text-xl mt-6" onclick="window.acquireExchangeItem('${item.id}')">
+                    <i class="fas fa-shopping-cart ml-2"></i> شراء
+                </button>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+        
+        window.showPassiveSkillModal = function(skillKey) {
+            const skill = player.skills[skillKey];
+            if (!skill || skill.type !== 'passive') return;
+
+            const modalHtml = `
+                <h3 class="text-center"><i class="${skill.icon} ml-3"></i> المهارة الكامنة: ${skill.name || window.getSkillNameArabic(skillKey)}</h3>
+                <p class="text-lg mt-4 text-gray-300">${skill.description || 'هذه مهارة كامنة تمنحك مكافآت دائمة أو تتحسن مع الوقت والتدريب.'}</p>
+                <p class="text-xl font-bold text-purple-300 mt-4">المستوى الحالي: ${skill.level}</p>
+                <p class="text-sm text-gray-400">الخبرة للمستوى التالي: ${skill.xp} / ${skill.xpToNextLevel}</p>
+                <p class="text-xs text-gray-500 mt-4">يتم تطوير المهارات الكامنة عادةً من خلال إكمال الزنزانات، استخدام العناصر، أو بشكل تلقائي مع تقدم المستوى العام.</p>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+        
+        window.showActiveSkillModal = function(skillKey) {
+            const skill = player.skills[skillKey];
+            if (!skill || skill.type !== 'active') return;
+
+            const modalHtml = `
+                <h3 class="text-center"><i class="${skill.icon} ml-3"></i> المهارة النشطة: ${skill.name}</h3>
+                <p class="text-lg mt-4 text-gray-300">${skill.description}</p>
+                <p class="text-xl font-bold text-purple-300 mt-4">المستوى الحالي: ${skill.level}</p>
+                <p class="text-sm text-gray-400">الخبرة للمستوى التالي: ${skill.xp} / ${skill.xpToNextLevel}</p>
+                <button class="btn-primary w-full px-8 py-3 rounded-full text-xl mt-6" onclick="window.activateSkill('${skillKey}')">
+                    <i class="fas fa-bolt ml-2"></i> تفعيل المهارة
+                </button>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+
+        window.activateSkill = function(skillKey) {
+            const skill = player.skills[skillKey];
+            if (skill && skill.type === 'active' && skill.effects) { // Changed from useEffect
+                 window.executeEffects(skill.effects);
+                window.hideInfoModal(); 
+                window.updateUI(); 
+                window.saveProgress(); // Save after skill activation
+            } else {
+                window.showSystemMessage("رسالة من المؤسس", "لا يمكن تفعيل هذه المهارة حالياً.");
+            }
+        };
+        
+        window.showStatusAilmentModal = function(ailmentId) {
+            const ailment = statusAilmentData[ailmentId];
+            if (!ailment) return;
+
+            const modalHtml = `
+                <h3 class="text-center"><i class="${ailment.icon} ml-3"></i> ${ailment.name}</h3>
+                <p class="text-lg mt-4 text-gray-300">${ailment.description}</p>
+                <p class="text-md text-red-400 mt-2">تأثير سلبي: ${Object.entries(ailment.statDebuff || {}).map(([key,value]) => `${window.getStatNameArabic(key)} ${value}`).join(', ')}.</p>
+                <p class="text-sm text-gray-400 mt-4">عليك أن تجد طريقة للتعافي من هذه الحالة (مثل استخدام عناصر معينة أو مهارات نشطة أو الراحة).</p>
+                 <button class="btn-primary px-6 py-2 mt-4 rounded-md" onclick="window.hideInfoModal()">حسناً</button>
+            `;
+            window.showInfoModal(modalHtml);
+        };
+
+        // --- LLM Integration Functions ---
+        // ###################################################################################
+        // # هام جداً: يرجى استبدال "YOUR_GEMINI_API_KEY" بمفتاح Gemini API الخاص بك.        #
+        // # يمكنك الحصول على مفتاح من Google AI Studio: https://aistudio.google.com/app/apikey  #
+        // ###################################################################################
+        const apiKey = "YOUR_GEMINI_API_KEY"; // <--- ★★★ أدخل مفتاح Gemini API الخاص بك هنا! ★★★
+        const GEMINI_MODEL_NAME = "gemini-2.0-flash"; 
+        const GEMINI_API_ENDPOINT_BASE = "https://generativelanguage.googleapis.com/v1beta/models/";
+
+        window.generateQuestFromLLM = async function() {
+            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY") {
+                window.showSystemMessage("خطأ في الإعداد", "مفتاح Gemini API غير متوفر أو لم يتم تعيينه. لا يمكن توليد مهمة مخصصة.");
+                return;
+            }
+            const loadingHtmlForInfoModal = `<h3 class="text-center text-purple-400">جارٍ توليد المهمة...</h3><p class="text-center text-gray-300">الرجاء الانتظار بينما يقوم المؤسس بتوليد مهمة خاصة لك.</p><div class="loading-spinner mx-auto mt-4"></div>`;
+            window.showInfoModal(loadingHtmlForInfoModal);
+
+            const currentSkillLevels = Object.entries(player.skills).map(([key, val]) => `${window.getSkillNameArabic(key)} ${val.level}`).join(', ');
+            const availableSkillKeysForReward = Object.keys(player.skills);
+
+            const prompt = `
+                أنت نظام "أكاديمية الصيادين" الذكي. الرجاء توليد مهمة "زنزانة" واقعية لتطوير الذات بناءً على حالة الصياد الحالية، مع الأخذ في الاعتبار حالات التأثير السلبية (إن وجدت) لتقديم تحدٍ مناسب.
+                حالة الصياد:
+                المستوى: ${player.level}, الرتبة: ${player.rank}
+                الصحة: ${player.health}/${player.maxHealth}, الطاقة: ${player.stamina}/${player.maxStamina}
+                الجوهر: ${player.aetherShards}
+                حالات التأثير السلبية: ${player.statusAilments.length > 0 ? player.statusAilments.map(id => statusAilmentData[id]?.name || id).join(', ') : 'لا يوجد'}.
+                الإحصائيات: القوة ${player.stats.strength}, الرشاقة ${player.stats.agility}, الذكاء ${player.stats.intelligence}، التحمل ${player.stats.stamina}, الحكمة ${player.stats.wisdom}
+                المهارات (المستوى): ${currentSkillLevels}.
+                المهنة: ${player.job ? player.job.name : 'لا يوجد'}
+
+                يجب أن تكون المهمة تحديًا عمليًا يمكن للصياد القيام به في الحياة الواقعية وأن تكون ذات صلة بحالته الحالية.
+                الرجاء إرجاع الإجابة بتنسيق JSON فقط، مع الالتزام بالبنية المحددة في responseSchema.
+                تكلفة الطاقة لقبول هذه المهمة المخصصة يجب أن تكون 10.
+                الوقت التقديري لإنجاز المهمة (estimatedDurationMinutes) يجب أن يكون بين 15 و 60 دقيقة.
+                تأكد من أن قيمة 'skill' في 'skillReward' هي إحدى الكلمات الإنجليزية الدقيقة من قائمة المهارات المتاحة.
+                اجعل اسم المهمة ووصفها باللغة العربية.
+                إذا كانت المهمة تتضمن خطوات متعددة، اذكرها في حقل 'tasks'. وإلا، يمكن ترك حقل 'tasks' فارغًا أو غير موجود.
+                اجعل مكافأة الجوهر (aetherShardsReward) حوالي 20-30% من قيمة نقاط الخبرة (xpReward).
+            `;
+            
+            const questSchema = {
+                type: "OBJECT",
+                properties: {
+                    id: { type: "STRING", description: "معرف فريد للمهمة (سيتم تجاهله وتوليده من طرف العميل)" },
+                    name: { type: "STRING", description: "اسم المهمة باللغة العربية" },
+                    description: { type: "STRING", description: "وصف تفصيلي للمهمة باللغة العربية" },
+                    tasks: { 
+                        type: "ARRAY",
+                        description: "قائمة بالمهام الفرعية للزنزانة (اختياري)",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                text: { type: "STRING", description: "نص المهمة الفرعية" }
+                            },
+                            required: ["text"]
+                        }
+                    },
+                    type: { type: "STRING", enum: ["مهمة مخصصة"], description: "نوع المهمة، يجب أن يكون 'مهمة مخصصة'" },
+                    rank: { type: "STRING", enum: rankEnumForSchema, description: "رتبة المهمة، يجب أن تكون مناسبة لمستوى اللاعب" },
+                    xpReward: { type: "NUMBER", description: "كمية نقاط الخبرة كمكافأة (بين 50 و 200)" },
+                    aetherShardsReward: { type: "NUMBER", description: "كمية الجوهر كمكافأة (حوالي 20-30% من xpReward)" },
+                    skillReward: {
+                        type: "OBJECT",
+                        properties: {
+                            skill: { type: "STRING", enum: availableSkillKeysForReward, description: "مفتاح المهارة بالإنجليزية من القائمة المتاحة" },
+                            amount: { type: "NUMBER", description: "كمية نقاط خبرة المهارة (بين 5 و 20)" }
+                        },
+                        required: ["skill", "amount"]
+                    },
+                    enemy: { type: "STRING", description: "العدو أو العائق الرمزي للمهمة باللغة العربية" },
+                    icon: { type: "STRING", description: "أيقونة FontAwesome (مثل fas fa-tasks)" },
+                    energyCost: {type: "NUMBER", description: "تكلفة الطاقة لقبول المهمة (يجب أن تكون 10)"},
+                    estimatedDurationMinutes: {type: "NUMBER", description: "الوقت التقديري لإنجاز المهمة بالدقائق (بين 15 و 60)"}
+                },
+                required: ["name", "description", "type", "rank", "xpReward", "aetherShardsReward", "skillReward", "enemy", "icon", "energyCost", "estimatedDurationMinutes"]
+            };
+
+
+            try {
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: {
+                         responseMimeType: "application/json",
+                         responseSchema: questSchema
+                    }
+                };
+
+                const fullApiUrl = `${GEMINI_API_ENDPOINT_BASE}${GEMINI_MODEL_NAME}:generateContent?key=${apiKey}`;
+                const response = await fetch(fullApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("LLM API Error Body:", errorBody);
+                    let errorData;
+                    try { errorData = JSON.parse(errorBody); } 
+                    catch (e) { errorData = { error: { message: errorBody }}; }
+                    throw new Error(`API request failed with status ${response.status}: ${errorData.error?.message || 'Unknown error'}`);
+                }
+                
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    
+                    const generatedQuestData = result.candidates[0].content.parts[0].text ? JSON.parse(result.candidates[0].content.parts[0].text) : null;
+
+                    if (!generatedQuestData || !generatedQuestData.name || !generatedQuestData.description || !player.skills[generatedQuestData.skillReward.skill] || !generatedQuestData.estimatedDurationMinutes) {
+                         throw new Error("LLM returned incomplete, invalid, or improperly structured quest data despite schema.");
+                    }
+                    
+                    const generatedQuest = { 
+                        ...generatedQuestData,
+                        id: `llm_dungeon_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`, 
+                        type: "مهمة مخصصة", 
+                        icon: generatedQuestData.icon || "fas fa-star",
+                        tasks: generatedQuestData.tasks ? generatedQuestData.tasks.map(t => ({ text: t.text, completed: false })) : [],
+                        energyCost: generatedQuestData.energyCost || 10, 
+                        aetherShardsReward: generatedQuestData.aetherShardsReward || Math.floor(generatedQuestData.xpReward * 0.25) 
+                    };
+
+                    dungeons.unshift(generatedQuest); 
+                    window.renderDungeons(); 
+                    window.showQuestAcceptanceModal('llm', generatedQuest.id); 
+
+                } else {
+                     throw new Error("LLM returned no valid candidates or content parts.");
+                }
+            } catch (error) {
+                console.error("Error generating quest:", error);
+                window.showInfoModal(`<h3 class="text-red-500 text-center">خطأ في توليد المهمة</h3><p class="text-center mt-4">لم يتمكن المؤسس من توليد مهمة: ${error.message}. الرجاء المحاولة مرة أخرى أو التأكد من صحة مفتاح API.</p><button class="btn-secondary px-4 py-2 mt-4" onclick="window.hideInfoModal()">إغلاق</button>`);
+            }
+        };
+
+        window.getMentorAdviceFromLLM = async function(companionId) {
+            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY") {
+                window.showSystemMessage("خطأ في الإعداد", "مفتاح Gemini API غير متوفر أو لم يتم تعيينه. لا يمكن طلب نصيحة.");
+                return;
+            }
+            const companion = player.companions.find(c => c.id === companionId);
+            const questionInput = document.getElementById('mentor-question-input');
+            const adviceOutputDiv = document.getElementById('mentor-advice-output');
+            const adviceTextP = document.getElementById('mentor-advice-text');
+            const loadingSpinner = document.getElementById('mentor-advice-loading');
+
+            if (!companion || !questionInput || !questionInput.value.trim()) {
+                if (adviceTextP) adviceTextP.textContent = "الرجاء كتابة سؤال للمرشد.";
+                if (adviceOutputDiv) adviceOutputDiv.classList.remove('hidden');
+                return;
+            }
+
+            adviceOutputDiv.classList.remove('hidden');
+            adviceTextP.textContent = "جارٍ صياغة النصيحة...";
+            loadingSpinner.classList.remove('hidden');
+
+            const userQuestion = questionInput.value.trim();
+            const prompt = `
+                أنت مرشد في أكاديمية الصيادين. شخصيتك هي: "${companion.persona}".
+                حالة الصياد: المستوى ${player.level}، الرتبة: ${player.rank}.
+                حالات التأثير السلبية الحالية لديه: ${player.statusAilments.length > 0 ? player.statusAilments.map(id => statusAilmentData[id]?.name || id).join(', ') : 'لا يوجد'}.
+                الصياد يسألك هذا السؤال: "${userQuestion}"
+                
+                الرجاء تقديم نصيحة عملية، محفزة، ومفيدة باللغة العربية. يجب أن تكون النصيحة متوافقة مع شخصيتك المحددة ومع حالة الصياد وسؤاله.
+                إذا كان الصياد يعاني من حالة سلبية، حاول أن تأخذها في الاعتبار في نصيحتك.
+                اجعل الإجابة كأنها حوار مباشر، ولا تزد عن 2-3 جمل (حوالي 50-75 كلمة).
+            `;
+
+            try {
+                const payload = { contents: [{ parts: [{ text: prompt }] }] };
+                const fullApiUrl = `${GEMINI_API_ENDPOINT_BASE}${GEMINI_MODEL_NAME}:generateContent?key=${apiKey}`;
+
+                const response = await fetch(fullApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                 if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("LLM API Error Body:", errorBody);
+                    let errorData;
+                    try { errorData = JSON.parse(errorBody); } 
+                    catch (e) { errorData = { error: { message: errorBody }}; }
+                    throw new Error(`API request failed with status ${response.status}: ${errorData.error?.message || 'Unknown error'}`);
+                }
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const advice = result.candidates[0].content.parts[0].text;
+                    adviceTextP.textContent = advice;
+                } else {
+                     throw new Error("LLM returned no valid candidates for advice.");
+                }
+            } catch (error) {
+                console.error("Error getting mentor advice:", error);
+                adviceTextP.textContent = `عذراً، حدث خطأ أثناء طلب النصيحة: ${error.message}. حاول مرة أخرى.`;
+            } finally {
+                loadingSpinner.classList.add('hidden');
+            }
+        };
+
+        window.saveProgress = function() {
+            try {
+                localStorage.setItem('hunterAcademyPlayer_v2.4', JSON.stringify(player)); 
+            } catch (e) {
+                console.error("Error saving progress to localStorage:", e);
+                window.showSystemMessage("رسالة من المؤسس", "لم يتمكن من حفظ التقدم. قد يكون المتصفح لا يدعم localStorage أو ممتلئ.");
+            }
+        };
+        
+        window.loadProgress = function() {
+            const savedData = localStorage.getItem('hunterAcademyPlayer_v2.4'); 
+            let firstLoad = !savedData;
+
+            if (savedData) {
+                try {
+                    const parsedData = JSON.parse(savedData);
+                    const defaultPlayerState = { 
+                        name: "صياد الظلال", level: 1, xp: 0, xpToNextLevel: 100, rank: "مُبتدئ", availablePoints: 0,
+                        health: 100, maxHealth: 100, stamina: 100, maxStamina: 100, aetherShards: 0,
+                        statusAilments: [], job: null, 
+                        stats: { strength: 10, agility: 10, intelligence: 10, stamina: 10, wisdom: 10 },
+                        skills: { 
+                            knowledge: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-book-reader', name: 'المعرفة' },
+                            fitness: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-running', name: 'اللياقة البدنية' },
+                            creativity: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-lightbulb', name: 'الإبداع' },
+                            discipline: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-user-shield', name: 'الانضباط' },
+                            focus: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-crosshairs', name: 'التركيز' },
+                            communication: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-comments', name: 'التواصل' },
+                            wisdom: { level: 1, xp: 0, xpToNextLevel: 50, type: 'passive', icon: 'fas fa-scroll', name: 'الحكمة' },
+                            meditation: { 
+                                level: 0, xp: 0, xpToNextLevel: 20, type: 'active', icon: 'fas fa-leaf', name: 'تأمل سريع', 
+                                description: 'يستعيد بعض الطاقة والتركيز.', 
+                                effects: [
+                                    { funcName: 'restoreStamina', params: [20] }, 
+                                    { funcName: 'removeAilment', params: ['distracted'] },
+                                    { funcName: 'showSystemMessage', params: ['مهارة نشطة', 'لقد مارست التأمل السريع! شعرت بتحسن في الطاقة والتركيز.'] },
+                                    { funcName: 'addSkillXP', params: ['focus', 5] }
+                                ]
+                            },
+                            power_nap: { 
+                                level: 0, xp: 0, xpToNextLevel: 30, type: 'active', icon: 'fas fa-moon', name: 'قيلولة القوة', 
+                                description: 'يستعيد كمية جيدة من الصحة.', 
+                                effects: [
+                                    { funcName: 'restoreHealth', params: [30] },
+                                    { funcName: 'removeAilment', params: ['fatigue'] },
+                                    { funcName: 'showSystemMessage', params: ['مهارة نشطة', 'لقد أخذت قيلولة القوة! شعرت بتحسن كبير في صحتك.'] },
+                                    { funcName: 'addSkillXP', params: ['fitness', 5] }
+                                ]
+                            } 
+                        },
+                        inventory: [], equippedItems: { head: null, body: null, weapon: null, accessory: null },
+                        titles: [
+                            { id: "title_beginner_hunter", name: "صياد مبتدئ", description: "لقب يمنح للصيادين الجدد الذين بدأوا رحلتهم.", earned: false },
+                            { id: "title_task_master", name: "سيد المهام", description: "أكملت 10 مهام بنجاح.", earned: false, condition: () => player.questLog.completed.length >= 10 },
+                            { id: "title_wisdom_adept", name: "حكيم ناشئ", description: "وصلت إلى المستوى 5 في مهارة الحكمة.", earned: false, condition: () => player.skills.wisdom && player.skills.wisdom.level >= 5 },
+                            { id: "title_wealthy_hunter", name: "صياد ثري", description: "جمعت 500 جوهر.", earned: false, condition: () => player.aetherShards >= 500 },
+                            { id: "title_dungeon_crawler", name: "مستكشف الزنزانات", description: "أكملت 5 زنزانات (غير يومية).", earned: false, condition: () => player.questLog.completed.filter(q => q.type !== 'يومية' && q.type !== 'مهمة مخصصة' && q.type !== 'بوابة عشوائية').length >= 5 },
+                            { id: "title_elite_challenger", name: "متحدي النخبة", description: "أكملت زنزانة من رتبة 'سيد' أو أعلى.", earned: false, condition: () => player.questLog.completed.some(q => q.rank === 'سيد' || q.rank === 'أسطوري') }
+                        ], 
+                        companions: [], 
+                        dailyQuestsStatus: dailyQuestsData.map(q => ({ id: q.id, completed: false, lastReset: 0 })),
+                        questLog: { active: [], completed: [], failed: [] }, jobChanged: false, dungeonTasksCompletion: {},
+                        lastVitalRegenTimestamp: 0 
+                    };
+
+                    player = { ...defaultPlayerState, ...parsedData }; 
+                    
+                    player.stats = { ...defaultPlayerState.stats, ...(parsedData.stats || {}) };
+                    player.skills = { ...defaultPlayerState.skills }; 
+                    if(parsedData.skills) { 
+                        for(const skillKey in parsedData.skills) {
+                            if(player.skills[skillKey]) {
+                                player.skills[skillKey] = {...player.skills[skillKey], ...parsedData.skills[skillKey]};
+                            } else {
+                                player.skills[skillKey] = parsedData.skills[skillKey]; 
+                            }
+                        }
+                    }
+
+
+                    player.inventory = Array.isArray(parsedData.inventory) ? parsedData.inventory : defaultPlayerState.inventory;
+                    player.equippedItems = parsedData.equippedItems || defaultPlayerState.equippedItems;
+                    player.titles = Array.isArray(parsedData.titles) ? parsedData.titles : defaultPlayerState.titles;
+                    player.companions = Array.isArray(parsedData.companions) ? parsedData.companions : defaultPlayerState.companions;
+                    player.questLog = parsedData.questLog || defaultPlayerState.questLog;
+                    player.statusAilments = Array.isArray(parsedData.statusAilments) ? parsedData.statusAilments : defaultPlayerState.statusAilments;
+                    player.job = parsedData.job || defaultPlayerState.job;
+                    player.dungeonTasksCompletion = parsedData.dungeonTasksCompletion || {};
+                    player.aetherShards = typeof parsedData.aetherShards === 'number' ? parsedData.aetherShards : 0;
+                    player.dailyQuestsStatus = Array.isArray(parsedData.dailyQuestsStatus) && parsedData.dailyQuestsStatus.length === dailyQuestsData.length ? parsedData.dailyQuestsStatus : defaultPlayerState.dailyQuestsStatus;
+                    player.lastVitalRegenTimestamp = parsedData.lastVitalRegenTimestamp || 0;
+
+
+                    console.log("Progress loaded (v2.4).");
+                } catch (e) {
+                    console.error("Error parsing saved data from localStorage (v2.4):", e);
+                    window.showSystemMessage("رسالة من المؤسس", "لم يتمكن من تحميل التقدم المحفوظ، قد يكون تالفاً. تم البدء ببيانات افتراضية.");
+                }
+            } else {
+                console.log("No saved progress found (v2.4). Starting fresh.");
+                 player.lastVitalRegenTimestamp = Date.now(); 
+            }
+
+            if (firstLoad || player.name === "صياد الظلال") { 
+                const newName = prompt("مرحباً بك في أكاديمية الصيادين! ما هو اسم الصياد الذي تختاره؟", "صياد الظلال");
+                if (newName && newName.trim() !== "") {
+                    player.name = newName.trim();
+                }
+            }
+            if (!player.titles.some(t => t.id === "title_beginner_hunter" && t.earned)) { 
+                 const beginnerTitle = player.titles.find(t => t.id === "title_beginner_hunter");
+                 if (beginnerTitle) beginnerTitle.earned = true; else player.titles.push({ id: "title_beginner_hunter", name: "صياد مبتدئ", description: "لقب يمنح للصيادين الجدد الذين بدأوا رحلتهم.", earned: true });
+            }
+            window.checkAndRegenerateVitals(); 
+            window.updateUI(); 
+        };
+
+        // --- Timed Dungeon Logic ---
+        function getNextOccurrence(dayOfWeekOrMonth, specificDay = null) {
+            const now = new Date();
+            let nextDate = new Date(now.getTime());
+
+            if (specificDay !== null) { // Monthly
+                nextDate.setDate(specificDay);
+                nextDate.setHours(8, 0, 0, 0); 
+                if (now.getTime() > nextDate.getTime() && now.getMonth() === nextDate.getMonth()) { 
+                    nextDate.setMonth(nextDate.getMonth() + 1); 
+                } else if (now.getTime() > nextDate.getTime()) { 
+                    nextDate.setMonth(nextDate.getMonth() + 1);
+                }
+            } else { // Weekly
+                const currentDay = now.getDay(); 
+                let daysUntilNext = dayOfWeekOrMonth - currentDay;
+                if (daysUntilNext < 0 || (daysUntilNext === 0 && now.getHours() >= 8)) { 
+                    daysUntilNext += 7;
+                }
+                nextDate.setDate(now.getDate() + daysUntilNext);
+                nextDate.setHours(8, 0, 0, 0); 
+            }
+            return nextDate;
+        }
+
+
+        window.isWeeklyDungeonOpen = function(dungeon) {
+            const now = new Date();
+            let startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - (now.getDay() - dungeon.openingDayOfWeek + 7) % 7);
+            startOfWeek.setHours(8,0,0,0);
+
+            let endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6); 
+            endOfWeek.setHours(23,59,59,999);
+            
+            return now >= startOfWeek && now <= endOfWeek;
+        };
+
+        window.isMonthlyDungeonOpen = function(dungeon) {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+
+            let startOfMonth = new Date(currentYear, currentMonth, dungeon.openingDayOfMonth, 8,0,0,0);
+            let endOfMonth = new Date(currentYear, currentMonth + 1, 0, 23,59,59,999); 
+
+            return now >= startOfMonth && now <= endOfMonth;
+        };
+
+        function formatTimeLeft(ms) {
+            if (ms < 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+            let seconds = Math.floor((ms / 1000) % 60);
+            let minutes = Math.floor((ms / (1000 * 60)) % 60);
+            let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+            let days = Math.floor(ms / (1000 * 60 * 60 * 24));
+            return { days, hours, minutes, seconds };
+        }
+        
+        window.getWeeklyDungeonTimeRemaining = function(dungeon) {
+            const now = new Date();
+            let startOfCurrentWeekDungeon = new Date(now);
+            startOfCurrentWeekDungeon.setDate(now.getDate() - (now.getDay() - dungeon.openingDayOfWeek + 7) % 7);
+            startOfCurrentWeekDungeon.setHours(8,0,0,0);
+
+            let endOfCurrentWeekDungeon = new Date(startOfCurrentWeekDungeon);
+            endOfCurrentWeekDungeon.setDate(startOfCurrentWeekDungeon.getDate() + 6); 
+            endOfCurrentWeekDungeon.setHours(23,59,59,999); 
+
+            if (now < startOfCurrentWeekDungeon) { 
+                 return { days: 0, hours: 0, minutes: 0, seconds: 0 }; 
+            }
+
+            const timeLeftMs = endOfCurrentWeekDungeon.getTime() - now.getTime();
+            return timeLeftMs > 0 ? formatTimeLeft(timeLeftMs) : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        };
+
+        window.getMonthlyDungeonTimeRemaining = function(dungeon) {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            let startOfDungeonMonth = new Date(currentYear, currentMonth, dungeon.openingDayOfMonth, 8,0,0,0);
+            let endOfDungeonMonth = new Date(currentYear, currentMonth + 1, 0, 23,59,59,999); 
+
+            if (now < startOfDungeonMonth) { 
+                return { days: 0, hours: 0, minutes: 0, seconds: 0 }; 
+            }
+
+            const timeLeftMs = endOfDungeonMonth.getTime() - now.getTime();
+            return timeLeftMs > 0 ? formatTimeLeft(timeLeftMs) : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        };
+        
+        window.startDungeonTimer = function(dungeon, timerElementId) {
+            if (activeTimers[dungeon.id]) {
+                clearInterval(activeTimers[dungeon.id]);
+            }
+            const timerElement = document.getElementById(timerElementId);
+            if (!timerElement) return;
+
+            const updateTimer = () => {
+                let timeLeft;
+                let isOpen = false;
+                if (dungeon.type === "زنزانة أسبوعية") {
+                    isOpen = window.isWeeklyDungeonOpen(dungeon);
+                    timeLeft = isOpen ? window.getWeeklyDungeonTimeRemaining(dungeon) : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+                } else if (dungeon.type === "زنزانة شهرية") {
+                    isOpen = window.isMonthlyDungeonOpen(dungeon);
+                    timeLeft = isOpen ? window.getMonthlyDungeonTimeRemaining(dungeon) : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+                } else {
+                    timerElement.textContent = ""; 
+                    clearInterval(activeTimers[dungeon.id]);
+                    return;
+                }
+
+                if (!isOpen || (timeLeft.days <= 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0 && timeLeft.seconds <= 0)) {
+                    timerElement.innerHTML = `<i class="fas fa-lock ml-1"></i> مغلقة`;
+                    clearInterval(activeTimers[dungeon.id]);
+                    const completeButton = document.getElementById(`complete-dungeon-btn-${dungeon.id}`);
+                    if(completeButton) {
+                        completeButton.disabled = true;
+                        completeButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                } else {
+                    timerElement.innerHTML = `<i class="fas fa-clock ml-1"></i>متبقي: ${timeLeft.days}ي ${timeLeft.hours}س ${timeLeft.minutes}د ${timeLeft.seconds}ث`;
+                }
+            };
+            updateTimer(); 
+            activeTimers[dungeon.id] = setInterval(updateTimer, 1000);
+        };
+
+
+        window.toggleDungeonTask = function(dungeonId, taskIndex) {
+            if (!player.dungeonTasksCompletion[dungeonId]) {
+                const dungeon = dungeons.find(d => d.id === dungeonId) || player.questLog.active.find(q => q.id === dungeonId);
+                if (dungeon && dungeon.tasks) {
+                    player.dungeonTasksCompletion[dungeonId] = dungeon.tasks.map(() => false);
+                } else {
+                    return; 
+                }
+            }
+            player.dungeonTasksCompletion[dungeonId][taskIndex] = !player.dungeonTasksCompletion[dungeonId][taskIndex];
+            
+            const taskElement = document.getElementById(`task-${dungeonId}-${taskIndex}`).parentElement;
+            if (taskElement) {
+                if (player.dungeonTasksCompletion[dungeonId][taskIndex]) {
+                    taskElement.classList.add('completed');
+                } else {
+                    taskElement.classList.remove('completed');
+                }
+            }
+            const modalButtonId = player.activeTimedQuest && player.activeTimedQuest.id === dungeonId ? `complete-timed-quest-btn-${dungeonId}` : `complete-dungeon-btn-${dungeonId}`;
+            window.updateDungeonCompleteButtonState(dungeonId, modalButtonId);
+            window.saveProgress();
+        };
+
+        window.areAllDungeonTasksCompleted = function(dungeonId) {
+            const dungeon = dungeons.find(d => d.id === dungeonId) || player.questLog.active.find(q => q.id === dungeonId);
+            if (!dungeon || !dungeon.tasks || dungeon.tasks.length === 0) return true; 
+            const completionStatus = player.dungeonTasksCompletion[dungeonId];
+            if (!completionStatus || completionStatus.length !== dungeon.tasks.length) return false;
+            return completionStatus.every(completed => completed);
+        };
+        
+        window.renderDungeonTasks = function(dungeonId, modalContentElement) {
+            const dungeon = dungeons.find(d => d.id === dungeonId) || player.questLog.active.find(q => q.id === dungeonId);
+            let tasksContainer = modalContentElement.querySelector(`#dungeon-tasks-container-${dungeonId}`);
+            if (!tasksContainer) { 
+                const referenceElement = modalContentElement.querySelector('p.text-lg.mt-2.text-gray-300'); 
+                tasksContainer = document.createElement('div');
+                tasksContainer.id = `dungeon-tasks-container-${dungeonId}`;
+                tasksContainer.className = 'space-y-2 mt-3 mb-3';
+                if (referenceElement) {
+                    referenceElement.insertAdjacentElement('afterend', tasksContainer);
+                } else { 
+                    const completeButton = modalContentElement.querySelector(`button[id^="complete-dungeon-btn-"], button[id^="complete-timed-quest-btn-"]`);
+                    if (completeButton) modalContentElement.insertBefore(tasksContainer, completeButton);
+                }
+            }
+            tasksContainer.innerHTML = ''; 
+
+            if (dungeon && dungeon.tasks && dungeon.tasks.length > 0) {
+                const tasksHeader = document.createElement('h4');
+                tasksHeader.className = 'text-lg font-semibold text-purple-300 mt-4 mb-2';
+                tasksHeader.textContent = 'المهام الفرعية:';
+                tasksContainer.appendChild(tasksHeader);
+
+                 (player.dungeonTasksCompletion[dungeonId] || dungeon.tasks.map(() => false)).forEach((completed, index) => {
+                    const taskItem = document.createElement('div');
+                    taskItem.className = `dungeon-task-item ${completed ? 'completed' : ''}`;
+                    taskItem.innerHTML = `
+                        <input type="checkbox" id="task-${dungeon.id}-${index}" ${completed ? 'checked' : ''} onchange="window.toggleDungeonTask('${dungeon.id}', ${index})">
+                        <label for="task-${dungeon.id}-${index}">${dungeon.tasks[index].text}</label>
+                    `;
+                    tasksContainer.appendChild(taskItem);
+                });
+            }
+        };
+        
+        window.updateDungeonCompleteButtonState = function(dungeonId, buttonId) {
+            const completeButton = document.getElementById(buttonId);
+            if (completeButton) {
+                const allTasksDone = window.areAllDungeonTasksCompleted(dungeonId);
+                completeButton.disabled = !allTasksDone;
+                if (allTasksDone) {
+                    completeButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    completeButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+        };
+        
+        window.failActiveQuest = function() { 
+            if (!player.activeTimedQuest || !player.activeTimedQuest.originalQuestData) {
+                console.warn("No active timed quest to fail or originalQuestData missing.");
+                window.hideTimedQuestModal();
+                return;
+            }
+
+            const questData = player.activeTimedQuest.originalQuestData;
+            player.health = Math.max(0, player.health - 5);
+            player.stamina = Math.max(0, player.stamina - 5);
+            window.showSystemMessage("فشل المهمة", `فشلت في إكمال مهمة "${questData.name}". تم خصم 5 صحة و 5 طاقة.`);
+            
+            const loggedQuest = player.questLog.active.find(q => q.id === questData.id);
+            if(loggedQuest) window.addQuestToLog(loggedQuest, 'failed');
+            else window.addQuestToLog(questData, 'failed'); 
+
+            delete player.dungeonTasksCompletion[questData.id];
+            window.hideTimedQuestModal();
+            window.updateUI();
+            window.saveProgress();
+        };
+
+        window.checkAndRegenerateVitals = function() {
+            const now = new Date();
+            const lastRegen = new Date(player.lastVitalRegenTimestamp);
+            const midnightToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+            
+            if (!player.lastVitalRegenTimestamp || lastRegen < midnightToday ) {
+                if (now >= midnightToday) { // Ensure it's past midnight for the current day
+                    player.health = player.maxHealth;
+                    player.stamina = player.maxStamina;
+                    player.lastVitalRegenTimestamp = now.getTime();
+                    window.showSystemMessage("تجديد يومي", "تم تجديد صحتك وطاقتك بالكامل!");
+                    window.updateUI();
+                    window.saveProgress();
+                    console.log("Vitals regenerated at:", new Date(player.lastVitalRegenTimestamp).toLocaleString());
+                }
+            }
+        };
+
+
+        // --- Initial Load and Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            window.loadProgress(); 
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if (targetElement) {
+                         targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            const menuButton = document.getElementById('menu-button');
+            const navLinks = document.getElementById('nav-links');
+
+            if (menuButton && navLinks) {
+                menuButton.addEventListener('click', () => {
+                    navLinks.classList.toggle('hidden');
+                });
+
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth < 1024 && !navLinks.classList.contains('hidden')) { 
+                            navLinks.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+            
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const hunterName = document.getElementById('community_name').value;
+                    window.showSystemMessage("شكراً لك!", `شكراً على رسالتك يا ${hunterName}! (هذه مجرد محاكاة، لم يتم إرسال شيء فعلياً).`);
+                    this.reset();
+                });
+            }
+            setInterval(window.renderDungeons, 60000); 
+            setInterval(window.checkAndRegenerateVitals, 5 * 60 * 1000); 
+        });
+    </script>
+</body>
+</html>
